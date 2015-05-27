@@ -1,0 +1,5 @@
+.idea/
+.puppet/
+.vagrant/
+hieradata
+Vagrantfile
