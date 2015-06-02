@@ -21,8 +21,8 @@ sudo /bin/bash script.sh
 SCRIPT
 
 Vagrant.configure("2") do |config|
-    numNodes = 2
-    ipAddrPrefix = "192.168.56.10"
+    numNodes = 1
+    ipAddrPrefix = "192.168.57.10"
     config.vm.provider "virtualbox" do |v|
         v.gui = false
         v.customize ["modifyvm", :id, "--memory", 256]

@@ -1,0 +1,8 @@
+classes:
+  - common_class1
+  - common_class2
+roles:
+  common_role1:
+    key1: value1
+    key2: value2
+common: common_value
