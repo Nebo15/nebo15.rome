@@ -1,8 +1,0 @@
-{
-  "LICENSE": "a03188329987b9f3a6786df8a0337710",
-  "README.md": "bb8def67a7ea2c24c8a89eb8c7fcecee",
-  "Rakefile": "20b80e526e351a74df2001f504e756d2",
-  "lib/facter/composer_latest_version.rb": "c92a31c54963e031de7d3cc018a94230",
-  "manifests/init.pp": "f127b43df087442150d3633777107afd",
-  "metadata.json": "0c230fed1bbd4e59cf1ca0a68143e363"
-}
