@@ -118,6 +118,7 @@ class users {
   #ensure => absent,
   #managehome => true
   }
+
   pe_accounts::user {'delete_user':
     locked  => true,
     name => 'user_name',
@@ -146,16 +147,11 @@ node default {
     license_key => '1111222233334444555566667777888899990000',
     use_latest  => true
   }
-  file { "/www":
+
+  file { ["/www", "/var/backups/mbank.api", "/var/www", "/var/www/.ssh"]:
     ensure => "directory",
     owner  => "www-data",
     group  => "www-data",
-    mode   => 755,
-  }
-  file { "/var/backups/mbank.api":
-    ensure => "directory",
-    owner  => "www-data",
-    group  => "www-data",
-    mode   => 755,
+    mode   => 755
   }
 }
