@@ -33,37 +33,23 @@ class install_php56 {
 /**
       AFTER GET REPOSITORY
 */
-class install_sphinx_search{
-  include apt
-  apt::ppa { 'ppa:builds/sphinxsearch-rel22': }
-  package { 'sphinxsearch':
-    ensure  => 'installed',
-    install_options => ['-y', '--force-yes'],
-    require => Apt::Ppa['ppa:builds/sphinxsearch-rel22']
-  }
 
-  file { "/www/mbank.api/sphinx/index":
-    ensure => "directory",
-    owner  => "sphinxsearch",
-    group  => "sphinxsearch",
-    mode   => 755,
-    require => Package['sphinxsearch']
-  }
-
-  file { "/www/mbank.api/sphinx/index":
-    ensure => "directory",
-    owner  => "sphinxsearch",
-    group  => "sphinxsearch",
-    mode   => 755,
-    require => Package['sphinxsearch']
-  }
-}
 
 class install_mongo {
-  class { '::mongodb::server': }
-  package { 'php5-mongo':
+  include apt
+  apt::source { 'install_mongo':
+    location => 'http://repo.mongodb.org/apt/ubuntu/ trusty/mongodb-org/3.0',
+    release  => 'multiverse',
+    repos    => "multiverse",
+
+    include  => {
+      'deb' => true,
+    },
+  }
+  package { ['php5-mongo', 'mongodb-org']:
     ensure  => 'installed',
-    install_options => ['-y', '--force-yes']
+    install_options => ['-y', '--force-yes'],
+    require => Apt::Source['install_mongo']
   }
 }
 
@@ -129,7 +115,6 @@ class users {
 
 node default {
 
-  class { 'nginx': }
   package {'install uuid-runtime':
     name    => 'uuid-runtime',
     ensure  => installed,
