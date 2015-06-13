@@ -20,6 +20,13 @@ class install_sphinx_search{
     match => '^START=*',
     require => Package['sphinxsearch']
   }
+
+  file { "/etc/sphinxsearch/sphinx.conf":
+    ensure => link,
+    target => "/www/mbank.api/settings/sphinx.conf",
+    require => Package['sphinxsearch'],
+    notify => Service["sphinxsearch"],
+  }
 }
 
 class sethostname {
