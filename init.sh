@@ -46,7 +46,7 @@ eval $curldata
 eval "$(ssh-agent -s)"
 
 ssh-add ~/.ssh/new_key
-
+cd ~/
 git clone -b BestWallet git@github.com:Nebo15/nebo15.rome.git nebo15.rome
 
 sudo puppet apply --modulepath ./nebo15.rome/puppet/modules nebo15.rome/puppet/manifests/init.pp
