@@ -2,26 +2,12 @@
 # vi: set ft=ruby :
 
 $script = <<SCRIPT
-echo 'TIMEZONE="Europe/Kiev"
-LOCALE_LANGUAGE="en_US"
-LOCALE_CODESET="en_US.UTF-8"
-echo I am provisioning...
-pwd
-sudo locale-gen $LOCALE_LANGUAGE $LOCALE_CODESET
-sudo echo "export LANGUAGE=$LOCALE_CODESET" >> /etc/bash.bashrc
-sudo echo "export LANG=$LOCALE_CODESET" >> /etc/bash.bashrc
-sudo echo "export LC_ALL=$LOCALE_CODESET" >> /etc/bash.bashrc
-sudo echo $TIMEZONE | sudo tee /etc/timezone
-export LANGUAGE=$LOCALE_CODESET
-export LANG=$LOCALE_CODESET
-export LC_ALL=$LOCALE_CODESET
-sudo dpkg-reconfigure locales
-' > script.sh
+echo '' > script.sh
 sudo /bin/bash script.sh
 SCRIPT
 
 Vagrant.configure("2") do |config|
-    numNodes = 2
+    numNodes = 1
     ipAddrPrefix = "192.168.58.19"
     config.vm.provider "virtualbox" do |v|
         v.gui = false

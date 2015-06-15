@@ -23,9 +23,14 @@ class install_sphinx_search{
 
   file { "/etc/sphinxsearch/sphinx.conf":
     ensure => link,
-    target => "/www/mbank.api/settings/sphinx.conf",
-    require => Package['sphinxsearch'],
-    notify => Service["sphinxsearch"],
+    target => "/www/mbank.api/settings/sphinx.example.conf",
+    require => Package['sphinxsearch']
+  }
+
+  service { 'sphinxsearch':
+    ensure      => 'running',
+    enable     => true,
+    require => File['/etc/sphinxsearch/sphinx.conf'],
   }
 }
 
