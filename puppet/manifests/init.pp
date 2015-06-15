@@ -21,6 +21,7 @@ class install_php56 {
     match => 'listen = *',
     require => Package[$enhancers]
   }
+
   file_line { 'php_ini_change':
     path  => '/etc/php5/fpm/php.ini',
     line  => 'cgi.fix_pathinfo=0',
@@ -36,7 +37,6 @@ class install_mongo {
     location => 'http://repo.mongodb.org/apt/ubuntu/ trusty/mongodb-org/3.0',
     release  => 'multiverse',
     repos    => "multiverse",
-
     include  => {
       'deb' => true,
     },
@@ -99,6 +99,15 @@ class users {
 }
 
 node default {
+  class { 'locales':
+    default_locale  => 'en_US.UTF-8',
+    locales         => ['en_US.UTF-8 UTF-8',],
+    lc_time         => 'en_US.UTF-8',
+  }
+
+  class { 'timezone':
+    timezone => 'Europe/Kiev',
+  }
 
   package {'install uuid-runtime':
     name    => 'uuid-runtime',
