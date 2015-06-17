@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 /bin/bash ${dir}/pre_script.sh
-
 cd ~/
 #add new deploy key to the server
 ssh-keygen -t rsa -b 4096 -N "" -f ~/.ssh/id_rsa -C "test_www_data_key"

@@ -99,15 +99,6 @@ class users {
 }
 
 node default {
-  class { 'locales':
-    default_locale  => 'en_US.UTF-8',
-    locales         => ['en_US.UTF-8 UTF-8',],
-    lc_time         => 'en_US.UTF-8',
-  }
-
-  class { 'timezone':
-    timezone => 'Europe/Kiev',
-  }
 
   package {'install uuid-runtime':
     name    => 'uuid-runtime',

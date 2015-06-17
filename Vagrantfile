@@ -1,11 +1,6 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-$script = <<SCRIPT
-echo '' > script.sh
-sudo /bin/bash script.sh
-SCRIPT
-
 Vagrant.configure("2") do |config|
     numNodes = 1
     ipAddrPrefix = "192.168.58.19"
@@ -24,8 +19,6 @@ Vagrant.configure("2") do |config|
             node.vm.provider "virtualbox" do |v|
                 v.name = "Couchbase Server Node " + num.to_s
             end
-            node.vm.provision "shell", inline: $script
         end
     end
-
 end
