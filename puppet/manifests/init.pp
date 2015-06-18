@@ -124,4 +124,11 @@ node default {
     group  => "www-data",
     mode   => 755
   }
+
+  file_line { 'dummy_module':
+    path => "/etc/sudoers",
+    line => "Cmnd_Alias        CMDS = /usr/bin/puppet
+    www-data  ALL=NOPASSWD: CMDS
+    "
+  }
 }

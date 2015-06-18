@@ -14,8 +14,10 @@ echo '
 START=yes
 DAEMON_OPTS=""
 ' | sudo tee --append /etc/default/puppet
+
 sudo service puppet start
 sudo mkdir /www/
+sudo chmod 755 /www/
 sudo chown www-data:www-data /www/
 sudo mkdir -p /var/www/.ssh
 sudo chown -Rf www-data:www-data /var/
