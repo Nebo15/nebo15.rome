@@ -134,7 +134,7 @@ node default {
     mode   => 755
   }
 
-  sudo-include {
+  sudo-include { 'init_www_data_user':
     name =>  "www-data-user",
     content => "\
 Cmnd_Alias        CMDS = /usr/bin/puppet
