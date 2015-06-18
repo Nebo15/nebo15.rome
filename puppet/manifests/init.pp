@@ -98,6 +98,15 @@ class users {
   }
 }
 
+define sudo-include($name, $content) {
+  file { "/etc/sudoers.d/$name":
+    content => $content,
+    mode => 0440,
+    user => root,
+    group => root,
+  }
+}
+
 node default {
 
   package {'install uuid-runtime':
@@ -125,10 +134,10 @@ node default {
     mode   => 755
   }
 
-  file_line { 'dummy_module':
-    path => "/etc/sudoers",
-    line => "Cmnd_Alias        CMDS = /usr/bin/puppet
-    www-data  ALL=NOPASSWD: CMDS
-    "
+  sudo-include { "www-data-user":
+    content => "\
+Cmnd_Alias        CMDS = /usr/bin/puppet
+www-data  ALL=NOPASSWD: CMDS
+"
   }
 }
