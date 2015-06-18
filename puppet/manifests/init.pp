@@ -102,7 +102,7 @@ define sudo-include($name, $content) {
   file { "/etc/sudoers.d/$name":
     content => $content,
     mode => 0440,
-    user => root,
+    owner => root,
     group => root,
   }
 }
