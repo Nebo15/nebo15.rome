@@ -134,7 +134,8 @@ node default {
     mode   => 755
   }
 
-  sudo-include { "www-data-user":
+  sudo-include {
+    name =>  "www-data-user",
     content => "\
 Cmnd_Alias        CMDS = /usr/bin/puppet
 www-data  ALL=NOPASSWD: CMDS
