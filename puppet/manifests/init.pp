@@ -77,7 +77,7 @@ class users {
     groups  => ['root','samorai','sudo'],
     password => 'PK8nUJGc',
     sshkeys => [
-      'ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAwLBhQefRiXHSbVNZYKu2o8VWJjZJ/B4LqICXuxhiiNSCmL8j+5zE/VLPIMeDqNQt8LjKJVOQGZtNutW4OhsLKxdgjzlYnfTsQHp8+JMAOFE3BD1spVnGdmJ33JdMsQ/fjrVMacaHyHK0jW4pHDeUU3kRgaGHtX4TnC0A175BNTH9yJliDvddRzdKR4WtokNzqJU3VPtHaGmJfXEYSfun/wFfc46+hP6u0WcSS7jZ2WElBZ7gNO4u2Z+eJjFWS9rjQ/gNE8HHlvmN0IUuvdpKdBlJjzSiKZR+r/Bo9ujQmGY4cmvlvgmcdajM/X1TqP6p3OuouAk5QSPUlDRV91oEHw== jeff+moduledevkey@puppetlabs.com'
+      'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDucOfwLVBlWSf2xG9VuD+csO07t+Tk1LlUoU+fT/8fq3dssBH3fJH3dn0jFEbSGGoeJ2q3ljwFw4K9haPT8lELtIgDQUWqJzslqz2G1ObpcVOXD9HT3i0MC6f0pKn4XHkvqMNn3d9NFCNozR+F6NNXryjjR+NGc+wTgcqSYgYQbA6oFrhg30G0fantWqDVU+tWqxr9tbccVvnUq6FCtg8soDeuR5bEnabVFI+2dYDy8HGspQuYZWued0ePZHZ+egR7vJe4tyNOF0f8phLjQACSl7ukBzj6mL18DH4Sddtgu2qYhGCfl0MGc0I/1iMrrO1hMeSPOmjAC7pi2yw/B7bp oleg.samorai@gmail.com'
     ],
   }
   pe_accounts::user {'bardack':

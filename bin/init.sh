@@ -1,8 +1,29 @@
 #!/usr/bin/env bash
 dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 ip="$(ip addr | grep 'state UP' -A2 | tail -n1 | awk '{print $2}' | cut -f1  -d'/')";
-/bin/bash ${dir}/pre_script.sh
-cd ~/
+source /etc/lsb-release
+wget https://apt.puppetlabs.com/puppetlabs-release-$DISTRIB_CODENAME.deb
+sudo dpkg -i puppetlabs-release-$DISTRIB_CODENAME.deb
+rm puppetlabs-release-$DISTRIB_CODENAME.deb
+sudo apt-get update
+sudo apt-get install -y -f puppet git
+if [ ! -d "/etc/puppet/environments" ]; then
+    sudo mkdir /etc/puppet/environments;
+fi
+sudo chgrp puppet /etc/puppet/environments
+sudo chmod 2775 /etc/puppet/environments
+echo '
+START=yes
+DAEMON_OPTS=""
+' | sudo tee --append /etc/default/puppet
+
+sudo service puppet start
+sudo mkdir /www/
+sudo chmod 755 /www/
+sudo chown www-data:www-data /www/
+sudo mkdir -p /var/www/.ssh
+sudo chown -Rf www-data:www-data /var/
+
 #add new deploy key to the server
 sudo -u www-data ssh-keygen -t rsa -b 4096 -N "" -f /var/www/.ssh/id_rsa_nebo15_rome -C "test_www_data_key"
 www_data_key=$(</var/www/.ssh/id_rsa_nebo15_rome.pub)
