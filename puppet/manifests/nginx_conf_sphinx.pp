@@ -60,5 +60,10 @@ node default {
     notify => Service["nginx"],
   }
 
+  file { "/etc/nginx/sites-enabled/mbank.api.conf":
+    ensure => link,
+    target => "/www/nebo15.rome/www/config/nginx.conf",
+    notify => Service["nginx"],
+  }
 
 }
