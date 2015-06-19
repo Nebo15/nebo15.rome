@@ -59,7 +59,7 @@ class users {
     groups  => ['root','kedome','sudo'],
     password => 'uZWNQdKm',
     sshkeys => [
-      'ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAwLBhQefRiXHSbVNZYKu2o8VWJjZJ/B4LqICXuxhiiNSCmL8j+5zE/VLPIMeDqNQt8LjKJVOQGZtNutW4OhsLKxdgjzlYnfTsQHp8+JMAOFE3BD1spVnGdmJ33JdMsQ/fjrVMacaHyHK0jW4pHDeUU3kRgaGHtX4TnC0A175BNTH9yJliDvddRzdKR4WtokNzqJU3VPtHaGmJfXEYSfun/wFfc46+hP6u0WcSS7jZ2WElBZ7gNO4u2Z+eJjFWS9rjQ/gNE8HHlvmN0IUuvdpKdBlJjzSiKZR+r/Bo9ujQmGY4cmvlvgmcdajM/X1TqP6p3OuouAk5QSPUlDRV91oEHw== jeff+moduledevkey4@puppetlabs.com'
+      'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCtY92QQmkfD7mxFw8mfZE8PCZIEhW97ZH0KU4M3x0MAV31a4NjLMzHY97kMk1kxxkR5ysvj2OFn9uU+Aw2tdJVd1ks91NgkaZGT4yKS156xXoir5n4dKs6UXx7nZMvAImQx6ixjIT+fm2I3l9NMW57jcAJQJYRvlVzvLf0+nHFSZFQ9WqsuMKkdLjP1p4L2Q6UsCTwtjFaY7DoRzak6JiQhT0ma1jNtERtKGxJOrdvlt4O5KHqqzP5d1HY38GVHKisKWx6mqJJxoJxnWD5mDJi5y/0C/8HVEP0QELeji381aYr57U28VG/RDqsBvERfT4iDQu17BnLd9yH14f5BZD7 kedome@icloud.com'
     ],
   }
   pe_accounts::user {'andrew':
@@ -68,7 +68,7 @@ class users {
     groups  => ['root','andrew','sudo'],
     password => 'Hfzmf5Mw',
     sshkeys => [
-      'ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAwLBhQefRiXHSbVNZYKu2o8VWJjZJ/B4LqICXuxhiiNSCmL8j+5zE/VLPIMeDqNQt8LjKJVOQGZtNutW4OhsLKxdgjzlYnfTsQHp8+JMAOFE3BD1spVnGdmJ33JdMsQ/fjrVMacaHyHK0jW4pHDeUU3kRgaGHtX4TnC0A175BNTH9yJliDvddRzdKR4WtokNzqJU3VPtHaGmJfXEYSfun/wFfc46+hP6u0WcSS7jZ2WElBZ7gNO4u2Z+eJjFWS9rjQ/gNE8HHlvmN0IUuvdpKdBlJjzSiKZR+r/Bo9ujQmGY4cmvlvgmcdajM/X1TqP6p3OuouAk5QSPUlDRV91oEHw== sysop+moduledevkey@puppetlabs.com'
+      'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCqqp5dmekEgbpGz/yOg5cET5SZAao+nltZzyAsRs45E26TBoOkrFIoN9qWeCtGHBZayaD+pQ/ygzMO+j3Ednzpe1WYXD6VuWmr5Qyk4rQdzWN1VbsyMrr1sw5C4VUE7S5L6PRk+cZHH6n0XIRoNIlL7nrXCMwSWDEIkIwqCagMOdAbix/g6wkiijir09JnqYbyE+nNTulvjW/mkIS3QYGj61p3XdfEZsySz8gqbMfJ0nf1o3LTwwShp5JZg+C8rMaGlPGuKGTHxT3s+v2Uywum5Q/HyCJ3IcVEl2jU62RjytAKRWA7eo9AY9J7cKb9bvCivkgmiD7J6JSTG7UlNvUP andrew@dryga.com'
     ],
   }
   pe_accounts::user {'samorai':
