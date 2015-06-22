@@ -57,7 +57,7 @@ class users {
     locked  => false,
     name => 'kedome',
     groups  => ['kedome','sudo'],
-    password => 'uZWNQdKm',
+    password => '$6$RT1yB3eL$HkPJUdPhgs5fjvtpyygMMW6jaKrUXAVmgkbi3T.t1vNX6nZ8d6sd3nWiac.O0Pb.x1TMhK03ficXGTWIe2cbY/',
     sshkeys => [
       'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCtY92QQmkfD7mxFw8mfZE8PCZIEhW97ZH0KU4M3x0MAV31a4NjLMzHY97kMk1kxxkR5ysvj2OFn9uU+Aw2tdJVd1ks91NgkaZGT4yKS156xXoir5n4dKs6UXx7nZMvAImQx6ixjIT+fm2I3l9NMW57jcAJQJYRvlVzvLf0+nHFSZFQ9WqsuMKkdLjP1p4L2Q6UsCTwtjFaY7DoRzak6JiQhT0ma1jNtERtKGxJOrdvlt4O5KHqqzP5d1HY38GVHKisKWx6mqJJxoJxnWD5mDJi5y/0C/8HVEP0QELeji381aYr57U28VG/RDqsBvERfT4iDQu17BnLd9yH14f5BZD7 kedome@icloud.com'
     ],
@@ -66,7 +66,7 @@ class users {
     locked  => false,
     name => 'andrew',
     groups  => ['andrew','sudo'],
-    password => 'Hfzmf5Mw',
+    password => '$6$mKwbL5vG$xxpSMDdW53QDcwjeomSXwDh2bZ.kkSiyQxBQx05H3SBY8rYunQfUJExY0vXYVNafXfIkP3BZdbRmBNiMzPQC0/',
     sshkeys => [
       'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCqqp5dmekEgbpGz/yOg5cET5SZAao+nltZzyAsRs45E26TBoOkrFIoN9qWeCtGHBZayaD+pQ/ygzMO+j3Ednzpe1WYXD6VuWmr5Qyk4rQdzWN1VbsyMrr1sw5C4VUE7S5L6PRk+cZHH6n0XIRoNIlL7nrXCMwSWDEIkIwqCagMOdAbix/g6wkiijir09JnqYbyE+nNTulvjW/mkIS3QYGj61p3XdfEZsySz8gqbMfJ0nf1o3LTwwShp5JZg+C8rMaGlPGuKGTHxT3s+v2Uywum5Q/HyCJ3IcVEl2jU62RjytAKRWA7eo9AY9J7cKb9bvCivkgmiD7J6JSTG7UlNvUP andrew@dryga.com'
     ],
@@ -84,7 +84,7 @@ class users {
     locked  => false,
     name => 'bardack',
     groups  => ['bardack','sudo'],
-    password => 'resWu2re',
+    password => '$6$Ie3WO9bM$dON5FqowUBFvZFdWfZfCmrzGo.qGVTW1ZCt0i/enhJUUja1pnOzmPs7Rc5hX4uIKC6qer41u81L6RLKpvALjX.',
     sshkeys => [
       'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCiOiaRLfU7iHjq2cvPPX+1eK1QDoJ7Yu0IrUrHuEWPxG5Mqui840A320y2Eb0Alr5rSeryZiYlIKxnoCWw2DgYBa5+wIbtEb6gIMszp39VF9qjNgXaAnWVKKWqN5JTLNOASG/Dxsw/DvtQ3M52+v4HYiZkZzGubUra5QqZNGndG7N8upvJYvgEwLaeTx/axwP91SdFBq1VqtGUgmrFbxFpX+4yx1jMVCoa/AIAEdHZIzu8ZlKduwhyT2vEOfg1xlsxq5vKZlthpGYQKtE4NI1dtJ/M+aYd96kG0UNmOOdvFq3dCD0P0MvhJf64Z9BMJXfhxHPTz9mknW/yKCfXfZ0t',
       'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDfDZkwERE9ZbWZZ1/XOmRkKdQ6mps3C4+LD6THKgfcpRKUui1BAsKwJmXSbApFgHOL5BmHHPUSOCCnl0knJYdjOxLwFgPfoZtDn3FES64/zQKGf1RqNOU1Ynw+hx+LFGKw5Af+cL88MUehbEFWI2M5prwC0rGgsNnwiQTcygP6TeCZJAegRMg626d5QU5MaOot/SsfRxrl45ii68oWyoz0CLRUKh2EOduz/hBf4jj83Kv2HDaZB1+qe7ttZqydaFZJvl5Ht0H7qgMwY1d0FC2jy3zEYXy5KrX5OdNrTgGIKxalp8gcOUANIU1Jhmr3ik4PYzr5NyIVfVwHZTz/dbPz paul@nebo15.com',
