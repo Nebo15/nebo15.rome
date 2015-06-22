@@ -78,7 +78,8 @@ class users {
     password => 'PK8nUJGc',
     sshkeys => [
       'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDucOfwLVBlWSf2xG9VuD+csO07t+Tk1LlUoU+fT/8fq3dssBH3fJH3dn0jFEbSGGoeJ2q3ljwFw4K9haPT8lELtIgDQUWqJzslqz2G1ObpcVOXD9HT3i0MC6f0pKn4XHkvqMNn3d9NFCNozR+F6NNXryjjR+NGc+wTgcqSYgYQbA6oFrhg30G0fantWqDVU+tWqxr9tbccVvnUq6FCtg8soDeuR5bEnabVFI+2dYDy8HGspQuYZWued0ePZHZ+egR7vJe4tyNOF0f8phLjQACSl7ukBzj6mL18DH4Sddtgu2qYhGCfl0MGc0I/1iMrrO1hMeSPOmjAC7pi2yw/B7bp oleg.samorai@gmail.com',
-    ]
+      'ssh-rsa AAAAB3NzaC1yc2EsAAADARABAAABAQDPYaa4wPCTI4WRvIF1LhpProLCQ7hRxcViX18bZl5732tLftkzuac7jnVy7iDM0A8exC9pGGK5i4ffguC2sOA6nfRuUlQ5E53FtRVsFS3Ziiv7LSzYKxPW0IyqvUZ+ZAKqlZB0ZXxMiSk2H4MN/VJFc9nMujb0TSQNyWgQpW6EPS2O7gqx91kOfwbtINsWSiCEyd5RnodAAdF+pz8Jy6uWtznkNl3LuPi8O2a/jsEtvKLjkDCrKKn69Rn0yuF201AQtdNQ1LhkDAuH+MwSalVp48evWN30UiVOc0wptEDyI6gPNlYiyiFvjnazUH2naJUtpvPF6ttjAk+sHPfgGslD paul.bardack@gmasil.com'
+    ],
   }
   pe_accounts::user {'bardack':
     locked  => false,
