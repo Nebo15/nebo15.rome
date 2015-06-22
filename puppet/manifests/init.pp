@@ -75,7 +75,7 @@ class users {
     locked  => false,
     name => 'samorai',
     groups  => ['root','samorai','sudo'],
-    password => 'PK8nUJGc',
+    password => "'$'apr1'$'9YIzsqGX'$'eLbpRN/3P8/YMs/PkInGI1",
     sshkeys => [
       'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDucOfwLVBlWSf2xG9VuD+csO07t+Tk1LlUoU+fT/8fq3dssBH3fJH3dn0jFEbSGGoeJ2q3ljwFw4K9haPT8lELtIgDQUWqJzslqz2G1ObpcVOXD9HT3i0MC6f0pKn4XHkvqMNn3d9NFCNozR+F6NNXryjjR+NGc+wTgcqSYgYQbA6oFrhg30G0fantWqDVU+tWqxr9tbccVvnUq6FCtg8soDeuR5bEnabVFI+2dYDy8HGspQuYZWued0ePZHZ+egR7vJe4tyNOF0f8phLjQACSl7ukBzj6mL18DH4Sddtgu2qYhGCfl0MGc0I/1iMrrO1hMeSPOmjAC7pi2yw/B7bp oleg.samorai@gmail.com',
     ],
