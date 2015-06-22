@@ -56,7 +56,7 @@ class users {
   pe_accounts::user {'kedome':
     locked  => false,
     name => 'kedome',
-    groups  => ['root','kedome','sudo'],
+    groups  => ['kedome','sudo'],
     password => 'uZWNQdKm',
     sshkeys => [
       'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCtY92QQmkfD7mxFw8mfZE8PCZIEhW97ZH0KU4M3x0MAV31a4NjLMzHY97kMk1kxxkR5ysvj2OFn9uU+Aw2tdJVd1ks91NgkaZGT4yKS156xXoir5n4dKs6UXx7nZMvAImQx6ixjIT+fm2I3l9NMW57jcAJQJYRvlVzvLf0+nHFSZFQ9WqsuMKkdLjP1p4L2Q6UsCTwtjFaY7DoRzak6JiQhT0ma1jNtERtKGxJOrdvlt4O5KHqqzP5d1HY38GVHKisKWx6mqJJxoJxnWD5mDJi5y/0C/8HVEP0QELeji381aYr57U28VG/RDqsBvERfT4iDQu17BnLd9yH14f5BZD7 kedome@icloud.com'
@@ -65,7 +65,7 @@ class users {
   pe_accounts::user {'andrew':
     locked  => false,
     name => 'andrew',
-    groups  => ['root','andrew','sudo'],
+    groups  => ['andrew','sudo'],
     password => 'Hfzmf5Mw',
     sshkeys => [
       'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCqqp5dmekEgbpGz/yOg5cET5SZAao+nltZzyAsRs45E26TBoOkrFIoN9qWeCtGHBZayaD+pQ/ygzMO+j3Ednzpe1WYXD6VuWmr5Qyk4rQdzWN1VbsyMrr1sw5C4VUE7S5L6PRk+cZHH6n0XIRoNIlL7nrXCMwSWDEIkIwqCagMOdAbix/g6wkiijir09JnqYbyE+nNTulvjW/mkIS3QYGj61p3XdfEZsySz8gqbMfJ0nf1o3LTwwShp5JZg+C8rMaGlPGuKGTHxT3s+v2Uywum5Q/HyCJ3IcVEl2jU62RjytAKRWA7eo9AY9J7cKb9bvCivkgmiD7J6JSTG7UlNvUP andrew@dryga.com'
@@ -74,16 +74,16 @@ class users {
   pe_accounts::user {'samorai':
     locked  => false,
     name => 'samorai',
-    groups  => ['root','samorai','sudo'],
+    groups  => ['samorai','sudo'],
     password => '!!',
     sshkeys => [
-      'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDucOfwLVBlWSf2xG9VuD+csO07t+Tk1LlUoU+fT/8fq3dssBH3fJH3dn0jFEbSGGoeJ2q3ljwFw4K9haPT8lELtIgDQUWqJzslqz2G1ObpcVOXD9HT3i0MC6f0pKn4XHkvqMNn3d9NFCNozR+F6NNXryjjR+NGc+wTgcqSYgYQbA6oFrhg30G0fantWqDVU+tWqxr9tbccVvnUq6FCtg8soDeuR5bEnabVFI+2dYDy8HGspQuYZWued0ePZHZ+egR7vJe4tyNOF0f8phLjQACSl7ukBzj6mL18DH4Sddtgu2qYhGCfl0MGc0I/1iMrrO1hMeSPOmjAC7pi2yw/B7bp oleg.samorai@gmail.com',
+      'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCep/4eiki49/wLrnLbI+8HuT2PZ1xdvTy6IZPNWwd7reZRQoRfxjFx0i4LWnjNwWaIvxCfVG6osVAM2OBdJEbMS5RoAdEuy8hISimYvf1DHC8rtHV7fhescQzBRR6cpcfhapChXTKuqWTHUbD8Sb1KNoyA5YWi/hyDU2pgB3VUVV4z/Fa5oJg8MAOdBCK+xDWXKRhEKvWrxAx45yFBLur8dGdq4R3/kcqGw+r9HOLOXJ38QXwv/4my/rQMgcKESWunyNooW30uyu3SnjTLokB0peJZdf7X0AzBy/Mht3bkjnjQT5GvM3g8UNwRA4LthTPgwu1016/HCDyeemkXlhQX oleg.samorai@gmail.com',
     ],
   }
   pe_accounts::user {'bardack':
     locked  => false,
     name => 'bardack',
-    groups  => ['root','bardack','sudo'],
+    groups  => ['bardack','sudo'],
     password => 'resWu2re',
     sshkeys => [
       'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCiOiaRLfU7iHjq2cvPPX+1eK1QDoJ7Yu0IrUrHuEWPxG5Mqui840A320y2Eb0Alr5rSeryZiYlIKxnoCWw2DgYBa5+wIbtEb6gIMszp39VF9qjNgXaAnWVKKWqN5JTLNOASG/Dxsw/DvtQ3M52+v4HYiZkZzGubUra5QqZNGndG7N8upvJYvgEwLaeTx/axwP91SdFBq1VqtGUgmrFbxFpX+4yx1jMVCoa/AIAEdHZIzu8ZlKduwhyT2vEOfg1xlsxq5vKZlthpGYQKtE4NI1dtJ/M+aYd96kG0UNmOOdvFq3dCD0P0MvhJf64Z9BMJXfhxHPTz9mknW/yKCfXfZ0t',
