@@ -123,7 +123,7 @@ node default {
     use_latest  => true
   }
 
-  file { ["/www", "/var/backups/mbank.api", "/var/www", "/var/www/.ssh"]:
+  file { ["/www", "/var/backups/mbank.api", "/var/www", "/var/www/.ssh", "/var/log"]:
     ensure => "directory",
     owner  => "www-data",
     group  => "www-data",
