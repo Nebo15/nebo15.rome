@@ -22,8 +22,9 @@ node default {
     target => "/www/mbank.api.fonar/nginx.example.conf",
     notify => Service["nginx"],
   }
+
   file_line { 'change_nginx_conf':
-    path  => '/etc/php5/fpm/php.ini',
+    path  => '/etc/nginx/nginx.conf',
     line  => "http {
     fastcgi_cache_path /var/www/data/nginx levels=1:2 keys_zone=one:10m;
     ",
