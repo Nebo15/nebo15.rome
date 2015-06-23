@@ -118,10 +118,6 @@ node default {
   include users
 
   Class[install_php56] -> Class[install_mongo]
-  class { 'newrelic':
-    license_key => '1111222233334444555566667777888899990000',
-    use_latest  => true
-  }
 
   file { ["/www", "/var/www", "/var/www/.ssh"]:
     ensure => "directory",

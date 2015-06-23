@@ -1,7 +1,0 @@
-{
-  "LICENSE": "19cbd64715b51267a47bf3750cc6a8a5",
-  "README.md": "896eba33b09bb8be5aa17db45bb85377",
-  "manifests/init.pp": "f5df4c32a9aa2f933a81d8bc97295a07",
-  "metadata.json": "71825755d2a649a942b03bec08c8f00f",
-  "templates/nrsysmond.cfg.erb": "d0c4bf8a4cb1d3fdbdbd18128b6519a1"
-}
