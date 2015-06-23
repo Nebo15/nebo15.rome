@@ -29,7 +29,15 @@ node default {
     fastcgi_cache_path /var/www/data/nginx levels=1:2 keys_zone=one:10m;
     ",
     match => '^http {',
+    require => File[["/www", "/var/www", "/var/www/data", "/var/www/data/nginx"]],
     notify => Service["nginx"],
+  }
+
+  file { ["/www", "/var/www", "/var/www/data", "/var/www/data/nginx"]:
+    ensure => "directory",
+    owner  => "www-data",
+    group  => "www-data",
+    mode   => 755
   }
 
   file { "/etc/nginx/sites-enabled/autodeployer.conf":
