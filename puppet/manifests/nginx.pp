@@ -19,7 +19,7 @@ node default {
   include sethostname
   file { "/etc/nginx/sites-enabled/mbank.api.fonar.conf":
     ensure => link,
-    target => "/www/mbank.api.fonar./nginx.example.conf",
+    target => "/www/mbank.api.fonar/nginx.example.conf",
     notify => Service["nginx"],
   }
 
