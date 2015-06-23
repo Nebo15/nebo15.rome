@@ -22,6 +22,14 @@ node default {
     target => "/www/mbank.api.fonar/nginx.example.conf",
     notify => Service["nginx"],
   }
+  file_line { 'change_nginx_conf':
+    path  => '/etc/php5/fpm/php.ini',
+    line  => "http {
+    fastcgi_cache_path /var/www/data/nginx levels=1:2 keys_zone=one:10m;
+    ",
+    match => '^http {',
+    notify => Service["nginx"],
+  }
 
   file { "/etc/nginx/sites-enabled/autodeployer.conf":
     ensure => link,

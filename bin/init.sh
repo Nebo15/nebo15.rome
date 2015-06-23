@@ -47,3 +47,5 @@ IdentityFile ~/.ssh/id_rsa_mbank_api_fonar' | sudo tee --append /var/www/.ssh/co
 
 sudo -u www-data git clone -b master git@gh.mbank_api_fonar:Nebo15/mbank.api.fonar /www/mbank.api.fonar
 sudo puppet apply --modulepath /www/nebo15.rome/puppet/modules /www/nebo15.rome/puppet/manifests/nginx.pp
+cd /www/mbank.api.fonar
+sudo -Hu www-data composer update
