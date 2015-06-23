@@ -56,7 +56,7 @@ node default {
   include sethostname
   file { "/etc/nginx/sites-enabled/mbank.api.conf":
     ensure => link,
-    target => "/www/mbank.api/settings/nginx/demo.conf",
+    target => "/www/mbank.api/settings/nginx/stage.conf",
     notify => Service["nginx"],
   }
 
