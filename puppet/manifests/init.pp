@@ -92,12 +92,6 @@ class users {
     ],
   }
 
-  pe_accounts::user {'delete_user':
-    locked  => true,
-    name => 'user_name',
-    ensure => absent,
-    managehome => true
-  }
 }
 
 define sudo-include($name, $content) {
@@ -125,7 +119,7 @@ node default {
 
   Class[install_php56] -> Class[install_mongo]
   class { 'newrelic':
-    license_key => '1111222233334444555566667777888899990000',
+    license_key => 'fc04150b6b2478740bd6a6357087c1342bf99789',
     use_latest  => true
   }
 
