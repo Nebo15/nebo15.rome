@@ -40,7 +40,7 @@ class sethostname {
     owner => root,
     group => root,
     mode => 644,
-    content => "sandbox.wallet.best\n",
+    content => "beta.wallet.best\n",
     notify => Exec["set-hostname"],
   }
   exec { "set-hostname":
