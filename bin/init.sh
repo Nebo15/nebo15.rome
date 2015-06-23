@@ -25,26 +25,25 @@ sudo mkdir -p /var/www/.ssh
 sudo chown -Rf www-data:www-data /var/
 
 #add new deploy key to the server
-sudo -u www-data ssh-keygen -t rsa -b 4096 -N "" -f /var/www/.ssh/id_rsa_nebo15_rome -C "test_www_data_key"
+sudo -u www-data ssh-keygen -t rsa -b 4096 -N "" -f /var/www/.ssh/id_rsa_nebo15_rome -C "key_mbank_api_fonar"
 www_data_key=$(</var/www/.ssh/id_rsa_nebo15_rome.pub)
-/bin/bash ${dir}/add_deploy_key.sh new_server_title nebo15.rome "${www_data_key}"
+/bin/bash ${dir}/add_deploy_key.sh key_mbank_api_fonar nebo15.rome "${www_data_key}"
 echo '
 Host gh.nebo15_rome
 HostName github.com
 IdentityFile ~/.ssh/id_rsa_nebo15_rome' | sudo tee --append /var/www/.ssh/config
 sudo -u www-data ssh-keyscan github.com >> ~/.ssh/known_hosts
-sudo -u www-data git clone -b BestWallet git@gh.nebo15_rome:Nebo15/nebo15.rome.git /www/nebo15.rome
+sudo -u www-data git clone -b mbank.api.fonar git@gh.nebo15_rome:Nebo15/nebo15.rome.git /www/nebo15.rome
 sudo puppet apply --modulepath /www/nebo15.rome/puppet/modules /www/nebo15.rome/puppet/manifests/init.pp
 
-sudo -u www-data ssh-keygen -t rsa -b 4096 -N "" -f /var/www/.ssh/id_rsa_mbank_api -C "test_www_data_key2"
-mbank_www_data_key=$(</var/www/.ssh/id_rsa_mbank_api.pub)
-/bin/bash ${dir}/add_deploy_key.sh new_server_title mbank.api "${mbank_www_data_key}"
+sudo -u www-data ssh-keygen -t rsa -b 4096 -N "" -f /var/www/.ssh/id_rsa_mbank_api_fonar -C "key_mbank_api_fonar_master"
+mbank_www_data_key=$(</var/www/.ssh/id_rsa_mbank_api_fonar.pub)
+/bin/bash ${dir}/add_deploy_key.sh key_mbank_api_fonar mbank.api.fonar "${mbank_www_data_key}"
 
 echo '
-Host gh.mbank_api
+Host gh.mbank_api_fonar
 HostName github.com
-IdentityFile ~/.ssh/id_rsa_mbank_api' | sudo tee --append /var/www/.ssh/config
+IdentityFile ~/.ssh/id_rsa_mbank_api_fonar' | sudo tee --append /var/www/.ssh/config
 
-sudo -u www-data git clone -b develop git@gh.mbank_api:Nebo15/mbank.api.git /www/mbank.api
-sudo puppet apply --modulepath /www/nebo15.rome/puppet/modules /www/nebo15.rome/puppet/manifests/nginx_conf_sphinx.pp
-sudo -Hu www-data /www/mbank.api/bin/update.sh
+sudo -u www-data git clone -b master git@gh.mbank_api_fonar:Nebo15/mbank.api.fonar /www/mbank.api.fonar
+sudo puppet apply --modulepath /www/nebo15.rome/puppet/modules /www/nebo15.rome/puppet/manifests/nginx.pp

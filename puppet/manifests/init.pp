@@ -92,12 +92,6 @@ class users {
     ],
   }
 
-  pe_accounts::user {'delete_user':
-    locked  => true,
-    name => 'user_name',
-    ensure => absent,
-    managehome => true
-  }
 }
 
 define sudo-include($name, $content) {
@@ -129,7 +123,7 @@ node default {
     use_latest  => true
   }
 
-  file { ["/www", "/var/backups/mbank.api", "/var/www", "/var/www/.ssh"]:
+  file { ["/www", "/var/www", "/var/www/.ssh"]:
     ensure => "directory",
     owner  => "www-data",
     group  => "www-data",
