@@ -66,12 +66,12 @@ node default {
     notify => Service["nginx"],
   }
 
-  file { "change_nginx_conf":
-    path   => "/etc/nginx/nginx.conf",
-    source => [
-      "/www/nebo15.rome/puppet/mbank_api_prod_configs/nginx.conf",
-    ],
-    notify => Service["nginx"],
-  }
+  #file { "change_nginx_conf":
+  #  path   => "/etc/nginx/nginx.conf",
+  #  source => [
+  #    "/www/nebo15.rome/puppet/mbank_api_prod_configs/nginx.conf",
+  #  ],
+  #  notify => Service["nginx"],
+  #}
 
 }
