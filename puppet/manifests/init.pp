@@ -15,18 +15,23 @@ class install_php56 {
     install_options => ['-y', '--force-yes'],
     require => Apt::Ppa['ppa:ondrej/php5-5.6']
   }
-
-  file_line { 'php_fpm_change_listen':
-    path  => '/etc/php5/fpm/pool.d/www.conf',
-    line  => 'listen = 127.0.0.1:9000',
-    match => 'listen = *',
+  file { "/etc/php5/fpm/pool.d/www.conf":
+    source => [
+      "/www/nebo15.rome/puppet/mbank_api_prod_configs/php-fpm-www.conf",
+    ],
+    require => Package[$enhancers]
+  }
+  file { "/etc/php5/fpm/php.ini":
+    source => [
+      "/www/nebo15.rome/puppet/mbank_api_prod_configs/php-fpm.ini",
+    ],
     require => Package[$enhancers]
   }
 
-  file_line { 'php_ini_change':
-    path  => '/etc/php5/fpm/php.ini',
-    line  => 'cgi.fix_pathinfo=0',
-    match => '^?(;)cgi.fix_pathinfo=*',
+  file { "/etc/php5/fpm/php-fpm.conf":
+    source => [
+      "/www/nebo15.rome/puppet/mbank_api_prod_configs/php-fpm.conf",
+    ],
     require => Package[$enhancers]
   }
 
