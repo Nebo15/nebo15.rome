@@ -40,7 +40,7 @@ class sethostname {
     owner => root,
     group => root,
     mode => 644,
-    content => "beta.wallet.best\n",
+    content => "api.wallet.best\n",
     notify => Exec["set-hostname"],
   }
   exec { "set-hostname":
@@ -56,7 +56,7 @@ node default {
   include sethostname
   file { "/etc/nginx/sites-enabled/mbank.api.conf":
     ensure => link,
-    target => "/www/mbank.api/settings/nginx/stage.conf",
+    target => "/www/mbank.api/settings/nginx/prod.conf",
     notify => Service["nginx"],
   }
 

@@ -4,7 +4,8 @@ $enhancers = [
   'php5-intl',
   'php5-curl',
   'php-pear',
-  'php5-dev'
+  'php5-dev',
+  'php5-mysql'
 ]
 class install_php56 {
   include apt
