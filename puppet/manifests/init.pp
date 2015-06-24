@@ -17,20 +17,20 @@ class install_php56 {
   }
   file { "/etc/php5/fpm/pool.d/www.conf":
     source => [
-      "/www/nebo15.rome/puppet/mbank_api_prod_configs/php-fpm-www.conf",
+      "/www/nebo15.rome/puppet/modules/mbank_api_prod_configs/php-fpm-www.conf",
     ],
     require => Package[$enhancers]
   }
   file { "/etc/php5/fpm/php.ini":
     source => [
-      "/www/nebo15.rome/puppet/mbank_api_prod_configs/php-fpm.ini",
+      "/www/nebo15.rome/puppet/modules/mbank_api_prod_configs/php-fpm.ini",
     ],
     require => Package[$enhancers]
   }
 
   file { "/etc/php5/fpm/php-fpm.conf":
     source => [
-      "/www/nebo15.rome/puppet/mbank_api_prod_configs/php-fpm.conf",
+      "/www/nebo15.rome/puppet/modules/mbank_api_prod_configs/php-fpm.conf",
     ],
     require => Package[$enhancers]
   }
