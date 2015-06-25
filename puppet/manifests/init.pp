@@ -122,11 +122,14 @@ node default {
   include composer
   include install_mongo
   include users
+  include apt
 
   Class[install_php56] -> Class[install_mongo]
-  class { 'newrelic':
-    license_key => 'fc04150b6b2478740bd6a6357087c1342bf99789',
-    use_latest  => true
+
+  class {'newrelic::agent::php':
+    newrelic_license_key  => 'fc04150b6b2478740bd6a6357087c1342bf99789',
+    newrelic_ini_appname  => 'Best Wallet',
+    newrelic_php_conf_dir => ['/etc/php5/mods-available','/etc/php5/fpm/conf.d'],
   }
 
   file { ["/www", "/var/backups/mbank.api", "/var/www", "/var/www/.ssh", "/var/log", "/var/log/www"]:
