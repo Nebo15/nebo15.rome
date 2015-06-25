@@ -52,9 +52,23 @@ class sethostname {
 node default {
 
   include install_sphinx_search
-  include nginx
   include sethostname
   include best_wallet_crons
+
+  class { 'nginx':
+    daemon_user => 'www-data',
+    worker_processes => 4,
+    pid => '/run/nginx.pid',
+    worker_connections => 1024,
+    multi_accept => 'on',
+    events_use => 'epoll',
+    sendfile => 'on',
+    http_tcp_nopush => 'on',
+    http_tcp_nodelay => 'on',
+    keepalive_timeout => '65',
+    types_hash_max_size => '2048',
+    server_tokens => 'off'
+  }
 
   file { "/etc/nginx/sites-enabled/mbank.api.conf":
     ensure => link,
@@ -67,13 +81,4 @@ node default {
     target => "/www/nebo15.rome/www/config/nginx.conf",
     notify => Service["nginx"],
   }
-
-  #file { "change_nginx_conf":
-  #  path   => "/etc/nginx/nginx.conf",
-  #  source => [
-  #    "/www/nebo15.rome/puppet/mbank_api_prod_configs/nginx.conf",
-  #  ],
-  #  notify => Service["nginx"],
-  #}
-
 }
