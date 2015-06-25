@@ -43,8 +43,8 @@ mbank_www_data_key=$(</var/www/.ssh/id_rsa_mbank_api_prod.pub)
 echo '
 Host gh.mbank_api_stage
 HostName github.com
-IdentityFile ~/.ssh/id_rsa_mbank_api_stage' | sudo tee --append /var/www/.ssh/config
+IdentityFile ~/.ssh/id_rsa_mbank_api_prod' | sudo tee --append /var/www/.ssh/config
 
 sudo -u www-data git clone -b master git@gh.mbank_api_stage:Nebo15/mbank.api.git /www/mbank.api
-sudo puppet apply --modulepath /www/nebo15.rome/puppet/modules /www/nebo15.rome/puppet/manifests/nginx_conf_sphinx.pp
+sudo puppet apply --modulepath /www/nebo15.rome/puppet/modules /www/nebo15.rome/puppet/manifests/general.pp
 sudo -Hu www-data /www/mbank.api/bin/update.sh

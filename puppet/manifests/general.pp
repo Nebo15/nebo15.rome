@@ -54,6 +54,8 @@ node default {
   include install_sphinx_search
   include nginx
   include sethostname
+  include best_wallet_crons
+
   file { "/etc/nginx/sites-enabled/mbank.api.conf":
     ensure => link,
     target => "/www/mbank.api/settings/nginx/prod.conf",
