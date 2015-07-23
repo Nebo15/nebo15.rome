@@ -80,7 +80,7 @@ node default {
   if (has_role("prod") and !has_role("develop")) {
     $nginx = "prod.conf"
   } else {
-    $nginx = "dev.conf"
+    $nginx = "demo.conf"
   }
   file { "/etc/nginx/sites-enabled/mbank.api.conf":
     ensure => link,
