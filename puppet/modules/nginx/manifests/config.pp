@@ -90,6 +90,7 @@ class nginx::config(
   $worker_connections             = '1024',
   $worker_processes               = '1',
   $worker_rlimit_nofile           = '1024',
+  $ssl_dhparam                    = false,
   ### END Nginx Configuration ###
 ) inherits ::nginx::params {
 

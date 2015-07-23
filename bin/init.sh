@@ -1,6 +1,86 @@
 #!/usr/bin/env bash
 dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 ip="$(ip addr | grep 'state UP' -A2 | tail -n1 | awk '{print $2}' | cut -f1  -d'/')";
+
+show_help()
+{
+cat << EOF
+This script download files from remote server and download tar.gz to local machine or remote host.
+Usage: $0 options
+OPTIONS:
+    -p  project (github project name)
+    -b  project branch (master|develop)
+    -r  rome branch (BestWallet|mbank.api.fonar etc.)
+    -t  github token
+    -h  show this message
+EOF
+}
+
+
+while getopts "p:b:r:t:h:" OPTION
+do
+     case ${OPTION} in
+         h)
+             show_help
+             exit 1
+             ;;
+         p)
+             project=$OPTARG
+             ;;
+         b)
+             project_branch=$OPTARG
+             ;;
+         r)
+             rome_branch=$OPTARG
+             ;;
+         t)
+             github_token=$OPTARG
+             ;;
+         ?)
+             show_help
+             exit
+             ;;
+     esac
+done
+
+add_deploy_key() {
+while getopts "k:t:s:p:" OPTION
+do
+     case ${OPTION} in
+         t)
+             Token=${OPTARG}
+             ;;
+         s)
+             Server_title=${OPTARG}
+             ;;
+         p)
+             Project=${OPTARG}
+             ;;
+         k)
+             Key_ssh=${OPTARG}
+             ;;
+         ?)
+             show_help
+             exit
+             ;;
+     esac
+done
+
+curldata=$"curl -X POST -H 'Content-type:application/json' -H 'Authorization: bearer ${Token}' -d '{\"title\":\""${Server_title}"\", \"key\":\""${Key_ssh}"\"}' \"https://api.github.com/repos/Nebo15/"${Project}"/keys\""
+eval ${curldata}
+eval "$(ssh-agent -s)"
+
+}
+add_host_to_ssh_config() {
+    host=$1
+    host_name=$2
+    file=$3
+    echo "
+Host ${host}
+HostName ${host_name}
+IdentityFile ${file}" | sudo tee --append /var/www/.ssh/config
+}
+
 source /etc/lsb-release
 wget https://apt.puppetlabs.com/puppetlabs-release-$DISTRIB_CODENAME.deb
 sudo dpkg -i puppetlabs-release-$DISTRIB_CODENAME.deb
@@ -16,35 +96,38 @@ echo '
 START=yes
 DAEMON_OPTS=""
 ' | sudo tee --append /etc/default/puppet
-
 sudo service puppet start
 sudo mkdir /www/
 sudo chmod 755 /www/
 sudo chown www-data:www-data /www/
 sudo mkdir -p /var/www/.ssh
-sudo chown -Rf www-data:www-data /var/
+sudo chown -Rf www-data:www-data /var/www/
 
-#add new deploy key to the server
-sudo -u www-data ssh-keygen -t rsa -b 4096 -N "" -f /var/www/.ssh/id_rsa_nebo15_rome -C "mbank_api_prod_deployer"
-www_data_key=$(</var/www/.ssh/id_rsa_nebo15_rome.pub)
-/bin/bash ${dir}/add_deploy_key.sh mbank_api_prod_deployer nebo15.rome "${www_data_key}"
-echo '
-Host gh.nebo15_rome
-HostName github.com
-IdentityFile ~/.ssh/id_rsa_nebo15_rome' | sudo tee --append /var/www/.ssh/config
+key_file_name="id_rsa_rome_${rome_branch}_${project}_${ip}"
+key_name="${project}_${project_branch}_deployer_${ip}"
+
+sudo -u www-data ssh-keygen -t rsa -b 4096 -N "" -f /var/www/.ssh/${key_file_name} -C "${key_name}"
+www_data_key=$(</var/www/.ssh/${key_file_name}.pub)
+
+add_deploy_key -t ${github_token} -s ${key_name} -p nebo15.rome -k "${www_data_key}"
+
+add_host_to_ssh_config gh.nebo15_rome github.com "~/.ssh/${key_file_name}"
+
 sudo -u www-data ssh-keyscan github.com >> ~/.ssh/known_hosts
-sudo -u www-data git clone -b BestWallet git@gh.nebo15_rome:Nebo15/nebo15.rome.git /www/nebo15.rome
+sudo -u www-data git clone -b ${rome_branch} git@gh.nebo15_rome:Nebo15/nebo15.rome.git /www/nebo15.rome
 sudo puppet apply --modulepath /www/nebo15.rome/puppet/modules /www/nebo15.rome/puppet/manifests/init.pp
 
-sudo -u www-data ssh-keygen -t rsa -b 4096 -N "" -f /var/www/.ssh/id_rsa_mbank_api_prod -C "mbank_api_prod"
-mbank_www_data_key=$(</var/www/.ssh/id_rsa_mbank_api_prod.pub)
-/bin/bash ${dir}/add_deploy_key.sh mbank_api_prod mbank.api "${mbank_www_data_key}"
+project_key_file_name="id_rsa_${project}_${project_branch}_${ip}"
+project_key_name="${project}_${project_branch}_${ip}"
+sudo -u www-data ssh-keygen -t rsa -b 4096 -N "" -f /var/www/.ssh/${project_key_file_name} -C "${project_key_name}"
+project_www_data_key=$(</var/www/.ssh/${project_key_file_name}.pub)
 
-echo '
-Host gh.mbank_api_stage
-HostName github.com
-IdentityFile ~/.ssh/id_rsa_mbank_api_prod' | sudo tee --append /var/www/.ssh/config
+add_deploy_key -t ${github_token} -s ${project_key_name} -p ${project} -k "${project_www_data_key}"
 
-sudo -u www-data git clone -b master git@gh.mbank_api_stage:Nebo15/mbank.api.git /www/mbank.api
+project_host="gh.${project}_${project_branch}"
+add_host_to_ssh_config ${project_host} github.com "~/.ssh/${project_key_file_name}"
+
+sudo -u www-data git clone -b ${project_branch} git@${project_host}:Nebo15/mbank.api.git /www/${project}
 sudo puppet apply --modulepath /www/nebo15.rome/puppet/modules /www/nebo15.rome/puppet/manifests/general.pp
+#TODO: think at next line
 sudo -Hu www-data /www/mbank.api/bin/update.sh

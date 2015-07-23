@@ -1,6 +1,7 @@
 class install_sphinx_search{
   include apt
   apt::ppa { 'ppa:builds/sphinxsearch-rel22': }
+
   package { 'sphinxsearch':
     ensure  => 'installed',
     install_options => ['-y', '--force-yes'],
@@ -24,8 +25,7 @@ class install_sphinx_search{
   file { "/etc/sphinxsearch/sphinx.conf":
     ensure => link,
     target => "/www/mbank.api/settings/sphinx.example.conf",
-    require => Package['sphinxsearch']
-  }
+    require => Package['sphinxsearch'] }
 
   service { 'sphinxsearch':
     ensure      => 'running',
@@ -35,12 +35,19 @@ class install_sphinx_search{
 }
 
 class sethostname {
+
+  if (has_role("prod") and !has_role("develop")) {
+    $host_name = "sandbox.wallet.best"
+  } else {
+    $host_name = "api.wallet.best"
+  }
+
   file { "/etc/hostname":
     ensure => present,
     owner => root,
     group => root,
     mode => 644,
-    content => "api.wallet.best\n",
+    content => "$host_name\n",
     notify => Exec["set-hostname"],
   }
   exec { "set-hostname":
@@ -67,12 +74,17 @@ node default {
     http_tcp_nodelay => 'on',
     keepalive_timeout => '65',
     types_hash_max_size => '2048',
-    server_tokens => 'off'
+    server_tokens => 'off',
+    ssl_dhparam => '/etc/nginx/dhparam.pem'
   }
-
+  if (has_role("prod") and !has_role("develop")) {
+    $nginx = "dev.conf"
+  } else {
+    $nginx = "prod.conf"
+  }
   file { "/etc/nginx/sites-enabled/mbank.api.conf":
     ensure => link,
-    target => "/www/mbank.api/settings/nginx/prod.conf",
+    target => "/www/mbank.api/settings/nginx/$nginx",
     notify => Service["nginx"],
   }
 
