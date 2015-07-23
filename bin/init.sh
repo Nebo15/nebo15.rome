@@ -44,27 +44,10 @@ do
 done
 
 add_deploy_key() {
-while getopts "k:t:s:p:" OPTION
-do
-     case ${OPTION} in
-         t)
-             Token=${OPTARG}
-             ;;
-         s)
-             Server_title=${OPTARG}
-             ;;
-         p)
-             Project=${OPTARG}
-             ;;
-         k)
-             Key_ssh=${OPTARG}
-             ;;
-         ?)
-             show_help
-             exit
-             ;;
-     esac
-done
+Token=$1
+Server_title=$2
+Project=$3
+Key_ssh=$4
 
 curldata=$"curl -X POST -H 'Content-type:application/json' -H 'Authorization: bearer ${Token}' -d '{\"title\":\""${Server_title}"\", \"key\":\""${Key_ssh}"\"}' \"https://api.github.com/repos/Nebo15/"${Project}"/keys\""
 eval ${curldata}
@@ -109,7 +92,7 @@ key_name="${project}_${project_branch}_deployer_${ip}"
 sudo -u www-data ssh-keygen -t rsa -b 4096 -N "" -f /var/www/.ssh/${key_file_name} -C "${key_name}"
 www_data_key=$(</var/www/.ssh/${key_file_name}.pub)
 
-add_deploy_key -t ${github_token} -s ${key_name} -p nebo15.rome -k "${www_data_key}"
+add_deploy_key ${github_token} ${key_name} nebo15.rome "${www_data_key}"
 
 add_host_to_ssh_config gh.nebo15_rome github.com "~/.ssh/${key_file_name}"
 
@@ -122,7 +105,7 @@ project_key_name="${project}_${project_branch}_${ip}"
 sudo -u www-data ssh-keygen -t rsa -b 4096 -N "" -f /var/www/.ssh/${project_key_file_name} -C "${project_key_name}"
 project_www_data_key=$(</var/www/.ssh/${project_key_file_name}.pub)
 
-add_deploy_key -t ${github_token} -s ${project_key_name} -p ${project} -k "${project_www_data_key}"
+add_deploy_key ${github_token} ${project_key_name} ${project} "${project_www_data_key}"
 
 project_host="gh.${project}_${project_branch}"
 add_host_to_ssh_config ${project_host} github.com "~/.ssh/${project_key_file_name}"

@@ -26,7 +26,8 @@ class mbank_api_mongo {
     path  => '/etc/mongod.conf',
     line  => 'auth = true',
     match => '^#auth =*',
-    notify => Service["mongod"]
+    notify => Service["mongod"],
+    require => Package[$mongo_packages]
   }
 
   $databasename = 'mbank_api'

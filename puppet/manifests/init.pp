@@ -26,7 +26,7 @@ node default {
     $new_relic_app_name = 'mbank.api.dev'
   }
 
-  #class{'mbank_api_users':} ->
+  class{'mbank_api_users':} ->
   class {'mbank_api_php56':} -> class{'mbank_api_mongo':} ->
   class {'newrelic::server::linux':
     newrelic_license_key  => $new_relic_licence_key,
