@@ -111,6 +111,7 @@ project_host="gh.${project}_${project_branch}"
 add_host_to_ssh_config ${project_host} github.com "~/.ssh/${project_key_file_name}"
 
 sudo -u www-data git clone -b ${project_branch} git@${project_host}:Nebo15/mbank.api.git /www/${project}
+sudo openssl dhparam -out /etc/ssl/dhparam.pem 4096
 sudo puppet apply --modulepath /www/nebo15.rome/puppet/modules /www/nebo15.rome/puppet/manifests/general.pp
 #TODO: think at next line
 sudo -Hu www-data /www/mbank.api/bin/update.sh

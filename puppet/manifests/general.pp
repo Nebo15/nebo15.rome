@@ -78,9 +78,9 @@ node default {
     ssl_dhparam => '/etc/nginx/dhparam.pem'
   }
   if (has_role("prod") and !has_role("develop")) {
-    $nginx = "dev.conf"
-  } else {
     $nginx = "prod.conf"
+  } else {
+    $nginx = "dev.conf"
   }
   file { "/etc/nginx/sites-enabled/mbank.api.conf":
     ensure => link,
