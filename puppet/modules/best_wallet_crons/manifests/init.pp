@@ -46,14 +46,14 @@ class best_wallet_crons {
     ensure => present,
   }
 
-  cron { check_mserver_api:
+  cron { send_daily_transaction_log:
     command => "${command} send_daily_transaction_log",
     user    => www-data,
     ensure => absent,
     hour    => '1',
     minute  => '0'
   }
-  cron { check_mserver_api:
+  cron { send_monthly_transaction_log:
     command => "${command} send_monthly_transaction_log",
     user    => www-data,
     ensure => absent,
@@ -61,7 +61,7 @@ class best_wallet_crons {
     minute  => '0',
     month =>  '1'
   }
-  cron { check_mserver_api:
+  cron { wallet_intersecting_contacts:
     command => "${command} wallet_intersecting_contacts",
     user    => www-data,
     ensure => absent,
