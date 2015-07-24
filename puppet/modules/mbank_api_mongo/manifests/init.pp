@@ -24,7 +24,7 @@ class mbank_api_mongo {
 
   $databasename = 'mbank_api'
   $databaseuser = 'mbank_api'
-  $databasepass = '|=YznZ_ws%~6B'
+  $databasepass = 'testchangepassword'
 
   mongodb_user { $databaseuser:
     ensure        => present,
