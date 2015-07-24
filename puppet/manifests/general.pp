@@ -60,7 +60,8 @@ node default {
 
   include install_sphinx_search
   include sethostname
-  include best_wallet_crons
+
+  class {'best_wallet_crons': }
 
   class { 'nginx':
     daemon_user => 'www-data',
