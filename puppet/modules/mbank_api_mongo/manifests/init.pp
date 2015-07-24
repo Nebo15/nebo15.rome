@@ -22,9 +22,11 @@ class mbank_api_mongo {
     require => Package[$mongo_packages]
   }
 
-  $databasename = 'mbank_api'
-  $databaseuser = 'mbank_api'
+  $databasename = 'mbank'
+  $databaseuser = 'mbank'
   $databasepass = 'testchangepassword'
+
+
 
   mongodb_user { $databaseuser:
     ensure        => present,
