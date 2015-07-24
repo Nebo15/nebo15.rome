@@ -26,6 +26,13 @@ class mbank_api_mongo {
   $databaseuser = 'mbank_api'
   $databasepass = 'testchangepassword'
 
+  file_line { 'set_mongo_auth':
+    path  => '/etc/mongod.conf',
+    line  => '#auth =',
+    match => '^auth = true',
+    notify => Service["mongod"],
+    require => Package[$mongo_packages]
+  }->
   mongodb_user { $databaseuser:
     ensure        => present,
     password_hash => mongodb_password($databaseuser, $databasepass),
