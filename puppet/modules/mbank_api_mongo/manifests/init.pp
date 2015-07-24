@@ -26,7 +26,7 @@ class mbank_api_mongo {
   $databaseuser = 'mbank_api'
   $databasepass = 'testchangepassword'
 
-  file_line { 'set_mongo_auth':
+  file_line { 'disable_mongo_auth':
     path  => '/etc/mongod.conf',
     line  => '#auth =',
     match => '^auth = true',
