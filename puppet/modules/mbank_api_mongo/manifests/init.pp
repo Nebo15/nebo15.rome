@@ -22,14 +22,6 @@ class mbank_api_mongo {
     require => Package[$mongo_packages]
   }
 
-  file_line { 'set_mongo_auth':
-    path  => '/etc/mongod.conf',
-    line  => 'auth = true',
-    match => '^#auth =*',
-    notify => Service["mongod"],
-    require => Package[$mongo_packages]
-  }
-
   $databasename = 'mbank_api'
   $databaseuser = 'mbank_api'
   $databasepass = '|=YznZ_ws%~6B'
@@ -40,7 +32,14 @@ class mbank_api_mongo {
     database      => $databasename,
     roles         => ['readWrite', 'dbAdmin'],
     tries         => 10,
-    require       => File_line['set_mongo_auth'],
+    require       => Package[$mongo_packages],
+  } ->
+  file_line { 'set_mongo_auth':
+    path  => '/etc/mongod.conf',
+    line  => 'auth = true',
+    match => '^#auth =*',
+    notify => Service["mongod"],
+    require => Package[$mongo_packages]
   }
 
 }
