@@ -37,9 +37,9 @@ class install_sphinx_search{
 class sethostname {
 
   if (has_role("prod") and !has_role("develop")) {
-    $host_name = "sandbox.wallet.best"
-  } else {
     $host_name = "api.wallet.best"
+  } else {
+    $host_name = "sandbox.wallet.best"
   }
 
   file { "/etc/hostname":
@@ -76,7 +76,7 @@ node default {
     keepalive_timeout => '65',
     types_hash_max_size => '2048',
     server_tokens => 'off',
-    ssl_dhparam => '/etc/nginx/dhparam.pem'
+    ssl_dhparam => '/etc/ssl/dhparam.pem'
   }
   if (has_role("prod") and !has_role("develop")) {
     $nginx = "prod.conf"
