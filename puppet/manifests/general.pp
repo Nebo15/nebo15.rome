@@ -60,8 +60,36 @@ node default {
 
   include install_sphinx_search
   include sethostname
+  if (has_role("prod") and !has_role("develop")) {
+    $check_services = true
+    $apns_feedback = true
+    $autopayment_events_processing = true
+    $autopayment_payments_checker = true
+    $drunken_do = false
+    $send_daily_transaction_log = false
+    $send_monthly_transaction_log = false
+    $wallet_intersecting_contacts = true
+  } else {
+    $check_services = true
+    $apns_feedback = true
+    $autopayment_events_processing = true
+    $autopayment_payments_checker = true
+    $drunken_do = true
+    $send_daily_transaction_log = true
+    $send_monthly_transaction_log = true
+    $wallet_intersecting_contacts = true
+  }
 
-  class {'best_wallet_crons': }
+  class { 'best_wallet_crons':
+    check_services => $check_services,
+    apns_feedback => $apns_feedback,
+    autopayment_events_processing => $autopayment_events_processing,
+    autopayment_payments_checker => $autopayment_payments_checker,
+    drunken_do => $drunken_do,
+    send_daily_transaction_log => $send_daily_transaction_log,
+    send_monthly_transaction_log => $send_monthly_transaction_log,
+    wallet_intersecting_contacts => $wallet_intersecting_contacts
+  }
 
   class { 'nginx':
     daemon_user => 'www-data',

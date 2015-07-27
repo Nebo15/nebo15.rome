@@ -47,8 +47,7 @@ class best_wallet_crons(
 
   add_cron{ check_services:
     command => "${command} check_services",
-    hour    => [12,18],
-    minute  => '15',
+    minute  => '0',
     ensure =>  $check_services
   }
 
