@@ -10,6 +10,11 @@ node default {
     ensure  => installed,
   }
 
+  package {'ruby-compass':
+    name    => 'npm',
+    ensure  => installed,
+  }
+
   include stdlib
   include apt
 
