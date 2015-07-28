@@ -11,7 +11,7 @@ node default {
   }
 
   package {'ruby-compass':
-    name    => 'npm',
+    name    => 'ruby-compass',
     ensure  => installed,
   }
 
