@@ -8,6 +8,7 @@ class mbank_api_php56 {
     'php5-dev',
     'php5-mysql',
     'php5-apcu',
+    'php5-imagick',
   ]
   include apt
   apt::ppa { 'ppa:ondrej/php5-5.6': }
