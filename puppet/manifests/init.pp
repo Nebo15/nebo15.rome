@@ -5,6 +5,11 @@ node default {
     ensure  => installed,
   }
 
+  package {'npm':
+    name    => 'npm',
+    ensure  => installed,
+  }
+
   include stdlib
   include apt
 

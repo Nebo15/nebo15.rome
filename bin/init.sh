@@ -101,7 +101,7 @@ sudo -u www-data git clone -b ${rome_branch} git@gh.nebo15_rome:Nebo15/nebo15.ro
 sudo puppet apply --modulepath /www/nebo15.rome/puppet/modules /www/nebo15.rome/puppet/manifests/init.pp
 
 apt-get install libreadline-dev libncurses5-dev libpcre3-dev libssl-dev perl make build-essential
-cd /vagrant/puppet/modules/ngx_openresty
+cd /www/nebo15.rome/puppet/modules/ngx_openresty
 ./configure
 make
 make install
@@ -119,4 +119,3 @@ project_host="gh.${project}_${project_branch}"
 add_host_to_ssh_config ${project_host} github.com "~/.ssh/${project_key_file_name}"
 
 sudo -u www-data git clone -b ${project_branch} git@${project_host}:Nebo15/${project}.git /www/${project}
-sudo openssl dhparam -out /etc/ssl/dhparam.pem 4096
