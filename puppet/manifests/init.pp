@@ -14,14 +14,7 @@ node default {
     ensure  => installed,
   }
 
-  package {'mysql-common':
-    name    => 'mysql-common',
-    ensure  => installed,
-  } ->
-  package {'mysql-client':
-    name    => 'mysql-client',
-    ensure  => installed,
-  }
+  class { 'mysql::client':}
 
   include stdlib
   include composer
