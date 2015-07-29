@@ -38,7 +38,7 @@ node default {
   } ~>
   class {'newrelic::agent::php':
     newrelic_license_key  => $new_relic_licence_key,
-    newrelic_ini_appname  => 'mbank.api.prod',
+    newrelic_ini_appname  => 'mbank.api',
     newrelic_php_conf_dir => ['/etc/php5/mods-available'],
   }
 
