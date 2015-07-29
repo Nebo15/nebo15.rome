@@ -17,6 +17,10 @@ node default {
   package {'mysql-common':
     name    => 'mysql-common',
     ensure  => installed,
+  } ->
+  package {'mysql-client':
+    name    => 'mysql-client',
+    ensure  => installed,
   }
 
   include stdlib
