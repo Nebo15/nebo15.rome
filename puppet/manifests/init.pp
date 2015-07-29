@@ -14,8 +14,6 @@ node default {
     ensure  => installed,
   }
 
-  class { 'mysql::client':}
-
   include stdlib
   include composer
   include apt
