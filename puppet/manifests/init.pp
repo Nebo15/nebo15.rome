@@ -14,6 +14,11 @@ node default {
     ensure  => installed,
   }
 
+  package {'mysql-common':
+    name    => 'mysql-common',
+    ensure  => installed,
+  }
+
   include stdlib
   include composer
   include apt
