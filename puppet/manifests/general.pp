@@ -65,7 +65,7 @@ node default {
     $apns_feedback = true
     $autopayment_events_processing = true
     $autopayment_payments_checker = true
-    $drunken_do = false
+    $drunken_do = true
     $send_daily_transaction_log = false
     $send_monthly_transaction_log = false
     $wallet_intersecting_contacts = true
