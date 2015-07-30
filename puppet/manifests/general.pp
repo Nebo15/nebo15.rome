@@ -37,7 +37,7 @@ class install_sphinx_search{
 class sethostname {
 
   if (has_role("prod") and !has_role("develop")) {
-    $host_name = "mbank.api"
+    $host_name = "msk.api.wallet.best"
   } else {
     $host_name = "sandbox.wallet.best"
   }
