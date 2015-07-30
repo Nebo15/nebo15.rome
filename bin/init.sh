@@ -118,6 +118,6 @@ add_host_to_ssh_config ${project_host} github.com "~/.ssh/${project_key_file_nam
 
 sudo -u www-data git clone -b ${project_branch} git@${project_host}:Nebo15/mbank.api.git /www/${project}
 sudo openssl dhparam -out /etc/ssl/dhparam.pem 4096
-sudo FACTER_server_tags="role:prod" puppet apply --modulepath /www/nebo15.rome/puppet/modules /www/nebo15.rome/puppet/manifests/general.pp
+sudo FACTER_server_tags="role:${enviroment}" puppet apply --modulepath /www/nebo15.rome/puppet/modules /www/nebo15.rome/puppet/manifests/general.pp
 #TODO: think at next line
 #sudo -Hu www-data /www/mbank.api/bin/update.sh
