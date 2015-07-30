@@ -69,6 +69,7 @@ node default {
     $send_daily_transaction_log = false
     $send_monthly_transaction_log = false
     $wallet_intersecting_contacts = true
+    $sync_service_param_items = true;
   } else {
     $check_services = true
     $apns_feedback = true
@@ -78,6 +79,7 @@ node default {
     $send_daily_transaction_log = true
     $send_monthly_transaction_log = true
     $wallet_intersecting_contacts = true
+    $sync_service_param_items = true;
   }
 
   class { 'best_wallet_crons':
@@ -88,7 +90,8 @@ node default {
     drunken_do => $drunken_do,
     send_daily_transaction_log => $send_daily_transaction_log,
     send_monthly_transaction_log => $send_monthly_transaction_log,
-    wallet_intersecting_contacts => $wallet_intersecting_contacts
+    wallet_intersecting_contacts => $wallet_intersecting_contacts,
+    sync_service_param_items => $sync_service_param_items
   }
 
   class { 'nginx':

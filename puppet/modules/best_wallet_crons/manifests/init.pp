@@ -28,6 +28,7 @@ class best_wallet_crons(
   $send_daily_transaction_log = false,
   $send_monthly_transaction_log = false,
   $wallet_intersecting_contacts = false,
+  $sync_service_param_items = false
 ) {
   $command = "/www/mbank.api/vendor/bin/pake -f /www/mbank.api/pakefile.php"
 
@@ -69,7 +70,7 @@ class best_wallet_crons(
   }
 
   add_cron { drunken_do:
-    command => "/www/mbank.api/vendor/bin/drunken do",
+    command => "/www/mbank.api/vendor/bin/drunken do --config=\"/www/mbank.api/drunken.config.php\"",
     ensure  => $drunken_do,
   }
 
@@ -92,6 +93,12 @@ class best_wallet_crons(
     command => "${command} wallet_intersecting_contacts",
     hour    => '3',
     minute  => '0',
+    ensure  => $wallet_intersecting_contacts
+  }
+  add_cron { sync_service_param_items:
+    command => "${command} sync_service_param_items",
+    hour    => '*',
+    minute  => '*/30',
     ensure  => $wallet_intersecting_contacts
   }
 }
