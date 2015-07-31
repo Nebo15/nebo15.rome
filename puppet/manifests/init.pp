@@ -53,7 +53,7 @@ www-data  ALL=NOPASSWD: CMDS
     notify => Service["ssh"]
   }
 
-  $host_name = "sandbox-mobile.wallet.best"
+  $host_name = "wallet.best"
   file { "/etc/hostname":
     ensure => present,
     owner => root,

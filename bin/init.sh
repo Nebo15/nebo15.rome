@@ -100,14 +100,6 @@ sudo -u www-data ssh-keyscan github.com >> ~/.ssh/known_hosts
 sudo -u www-data git clone -b ${rome_branch} git@gh.nebo15_rome:Nebo15/nebo15.rome.git /www/nebo15.rome
 sudo puppet apply --modulepath /www/nebo15.rome/puppet/modules /www/nebo15.rome/puppet/manifests/init.pp
 
-apt-get install libreadline-dev libncurses5-dev libpcre3-dev libssl-dev perl make build-essential
-cd /www/nebo15.rome/puppet/modules/ngx_openresty
-./configure
-make
-make install
-PATH=/etc/nginx/sbin:$PATH
-export PATH
-
 project_key_file_name="id_rsa_${project}_${project_branch}_${ip}"
 project_key_name="${project}_${project_branch}_${ip}"
 sudo -u www-data ssh-keygen -t rsa -b 4096 -N "" -f /var/www/.ssh/${project_key_file_name} -C "${project_key_name}"
