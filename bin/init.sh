@@ -24,14 +24,8 @@ do
              show_help
              exit 1
              ;;
-         p)
-             project=$OPTARG
-             ;;
          b)
              project_branch=$OPTARG
-             ;;
-         r)
-             rome_branch=$OPTARG
              ;;
          t)
              github_token=$OPTARG
@@ -42,6 +36,9 @@ do
              ;;
      esac
 done
+
+rome_branch="wallet.best"
+project="mbank.web"
 
 add_deploy_key() {
 Token=$1
@@ -93,21 +90,18 @@ sudo -u www-data ssh-keygen -t rsa -b 4096 -N "" -f /var/www/.ssh/${key_file_nam
 www_data_key=$(</var/www/.ssh/${key_file_name}.pub)
 
 add_deploy_key ${github_token} ${key_name} nebo15.rome "${www_data_key}"
-
 add_host_to_ssh_config gh.nebo15_rome github.com "~/.ssh/${key_file_name}"
-
-sudo -u www-data ssh-keyscan github.com >> ~/.ssh/known_hosts
 sudo -u www-data git clone -b ${rome_branch} git@gh.nebo15_rome:Nebo15/nebo15.rome.git /www/nebo15.rome
-sudo puppet apply --modulepath /www/nebo15.rome/puppet/modules /www/nebo15.rome/puppet/manifests/init.pp
 
-project_key_file_name="id_rsa_${project}_${project_branch}_${ip}"
-project_key_name="${project}_${project_branch}_${ip}"
-sudo -u www-data ssh-keygen -t rsa -b 4096 -N "" -f /var/www/.ssh/${project_key_file_name} -C "${project_key_name}"
-project_www_data_key=$(</var/www/.ssh/${project_key_file_name}.pub)
+projects=("mbank.web" "mbank.web.mobile" "mbank.web.admin" "mbank.web.b2b")
 
-add_deploy_key ${github_token} ${project_key_name} ${project} "${project_www_data_key}"
-
-project_host="gh.${project}_${project_branch}"
-add_host_to_ssh_config ${project_host} github.com "~/.ssh/${project_key_file_name}"
-
-sudo -u www-data git clone -b ${project_branch} git@${project_host}:Nebo15/${project}.git /www/${project}
+for project_name in ${projects[@]}; do
+    project_key_file_name="id_rsa_${project_name}_${project_branch}_${ip}"
+    project_key_name="${project}_${project_branch}_${ip}"
+    sudo -u www-data ssh-keygen -t rsa -b 4096 -N "" -f /var/www/.ssh/${project_key_file_name} -C "${project_key_name}"
+    project_www_data_key=$(</var/www/.ssh/${project_key_file_name}.pub)
+    add_deploy_key ${github_token} ${project_key_name} ${project_name} "${project_www_data_key}"
+    project_host="gh.${project_name}_${project_branch}"
+    add_host_to_ssh_config ${project_host} github.com "~/.ssh/${project_key_file_name}"
+done;
+#sudo puppet apply --modulepath /www/nebo15.rome/puppet/modules /www/nebo15.rome/puppet/manifests/init.pp
