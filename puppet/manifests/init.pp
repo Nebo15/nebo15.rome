@@ -1,33 +1,20 @@
 node default {
-
-  package {'install uuid-runtime':
-    name    => 'uuid-runtime',
-    ensure  => installed,
-  }
-
-  package {'npm':
-    name    => 'npm',
-    ensure  => installed,
-  }
-
-  package {'ruby-compass':
-    name    => 'ruby-compass',
-    ensure  => installed,
-  }
-
   include stdlib
   include apt
 
+  package {'install uuid-runtime': name    => 'uuid-runtime',ensure  => installed,}
+  package {'npm': name    => 'npm',ensure  => installed,}
+  package {'ruby-compass': name    => 'ruby-compass', ensure  => installed,}
+  package { "openssh-server": ensure => "installed" }
+
+  class {'mbank_api_php56':}
   class{'mbank_api_users':} ->
-
-
   file { ["/www", "/var/www", "/var/www/.ssh", "/var/log", "/var/log/www"]:
     ensure => "directory",
     owner  => "www-data",
     group  => "www-data",
     mode   => 755
-  }
-
+  } ->
   file { "/etc/sudoers.d/www-data-user":
     content => "\
 Cmnd_Alias        CMDS = /usr/bin/puppet
@@ -36,9 +23,7 @@ www-data  ALL=NOPASSWD: CMDS
     mode => 0440,
     owner => root,
     group => root,
-  }
-
-  package { "openssh-server": ensure => "installed" }
+  } ->
   package {'npm':
     name    => 'npm',
     ensure  => installed,
@@ -105,6 +90,7 @@ www-data  ALL=NOPASSWD: CMDS
     source     => 'git@gh.mbank.web_master:Nebo15/mbank.web.git',
     user       => 'www-data',
     revision   => 'master',
+    require => File["/www", "/var/www", "/var/www/.ssh", "/var/log", "/var/log/www"]
   } ->
 
   vcsrepo { '/www/mbank.web.mobile':
