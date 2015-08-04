@@ -85,7 +85,7 @@ www-data  ALL=NOPASSWD: CMDS
   vcsrepo { '/www/mbank.web':
     ensure     => latest,
     provider   => git,
-    source     => 'git@gh.mbank.web_master:Nebo15/mbank.web.git',
+    source     => 'git@gh.mbank.web_wallet.best:Nebo15/mbank.web.git',
     user       => 'www-data',
     revision   => 'master',
     require => File["/www", "/var/www", "/var/www/.ssh", "/var/log", "/var/log/www"]
@@ -94,7 +94,7 @@ www-data  ALL=NOPASSWD: CMDS
   vcsrepo { '/www/mbank.web.mobile':
     ensure     => latest,
     provider   => git,
-    source     => 'git@gh.mbank.web.mobile_master:Nebo15/mbank.web.mobile.git',
+    source     => 'git@gh.mbank.web.mobile_wallet.best:Nebo15/mbank.web.mobile.git',
     user       => 'www-data',
     revision   => 'master',
   } ->
@@ -102,14 +102,14 @@ www-data  ALL=NOPASSWD: CMDS
   vcsrepo { '/www/mbank.web.admin':
     ensure     => latest,
     provider   => git,
-    source     => 'git@gh.mbank.web.admin_master:Nebo15/mbank.web.admin.git',
+    source     => 'git@gh.mbank.web.admin_wallet.best:Nebo15/mbank.web.admin.git',
     user       => 'www-data',
     revision   => 'master',
   } ->
   vcsrepo { '/www/mbank.web.b2b':
     ensure     => latest,
     provider   => git,
-    source     => 'git@gh.mbank.web.b2b_master:Nebo15/mbank.web.b2b.git',
+    source     => 'git@gh.mbank.web.b2b_wallet.best:Nebo15/mbank.web.b2b.git',
     user       => 'www-data',
     revision   => 'master',
   }
