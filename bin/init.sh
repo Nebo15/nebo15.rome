@@ -104,4 +104,5 @@ for project_name in ${projects[@]}; do
     project_host="gh.${project_name}_${project_branch}"
     add_host_to_ssh_config ${project_host} github.com "~/.ssh/${project_key_file_name}"
 done;
-#sudo puppet apply --modulepath /www/nebo15.rome/puppet/modules /www/nebo15.rome/puppet/manifests/init.pp
+sudo openssl dhparam -out /etc/ssl/dhparam.pem 4096
+sudo puppet apply --modulepath /www/nebo15.rome/puppet/modules /www/nebo15.rome/puppet/manifests/init.pp
