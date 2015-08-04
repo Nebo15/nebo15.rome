@@ -126,6 +126,16 @@ www-data  ALL=NOPASSWD: CMDS
     target => '/www/mbank.web.mobile/settings/nginx/prod.conf',
     require => Vcsrepo['/www/mbank.web.mobile']
   }
+  file { '/etc/nginx/sites-enabled/mbank.web.mobile.bov.conf':
+    ensure => 'link',
+    target => '/www/mbank.web.mobile/settings/nginx/prod.bov.conf',
+    require => Vcsrepo['/www/mbank.web.mobile']
+  }
+  file { '/etc/nginx/sites-enabled/wallet.balticps.lv.conf':
+    ensure => 'link',
+    target => '/www/mbank.web.mobile/settings/nginx/prod.balticps.conf',
+    require => Vcsrepo['/www/mbank.web.mobile']
+  }
   file { '/etc/nginx/sites-enabled/mbank.web.admin.conf':
     ensure => 'link',
     target => '/www/mbank.web.admin/settings/nginx/prod.conf',
