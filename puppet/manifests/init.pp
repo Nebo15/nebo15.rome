@@ -80,7 +80,7 @@ www-data  ALL=NOPASSWD: CMDS
     http_tcp_nodelay => 'on',
     keepalive_timeout => '65',
     types_hash_max_size => '2048',
-    server_tokens => 'off'
+    server_tokens => 'off',
     ssl_dhparam => '/etc/ssl/dhparam.pem'
   } ->
 
