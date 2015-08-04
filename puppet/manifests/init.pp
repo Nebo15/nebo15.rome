@@ -3,7 +3,6 @@ node default {
   include apt
 
   package {'install uuid-runtime': name    => 'uuid-runtime',ensure  => installed,}
-  package {'npm': name    => 'npm',ensure  => installed,}
   package {'ruby-compass': name    => 'ruby-compass', ensure  => installed,}
   package { "openssh-server": ensure => "installed" }
 
