@@ -38,11 +38,22 @@ node default {
     server_tokens => 'off',
   }
 
-  $nginx = "nginx.conf"
-
   file { "/etc/nginx/sites-enabled/mbank.api.serega.conf":
-    ensure => link,
-    target => "/www/mbank.api.serega/$nginx",
+    ensure => file,
+    content => "\
+server{
+        listen 80;
+        server_name serega.wallet.best;
+
+        set \$php 127.0.0.1:9000;
+        set \$root_path /www/mbank.api.serega;
+
+        access_log /var/log/sandbox.serega.access.log;
+        error_log /var/log/sandbox.serega.error.log;
+
+        include /www/mbank.api.serega/nginx.conf;
+}
+",
     notify => Service["nginx"],
   }
 
