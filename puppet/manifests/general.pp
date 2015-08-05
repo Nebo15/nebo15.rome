@@ -1,6 +1,6 @@
 class sethostname {
 
-  $host_name = "serega.wallet.best"
+  $host_name = "ams-serega.wallet.best"
   file { "/etc/hostname":
     ensure => present,
     owner => root,

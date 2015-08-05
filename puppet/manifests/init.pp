@@ -18,6 +18,17 @@ node default {
   include composer
   include apt
 
+  $new_relic_licence_key = "fc04150b6b2478740bd6a6357087c1342bf99789"
+  $new_relic_app_name = 'mbank.api.serega.production'
+  class {'newrelic::server::linux':
+    newrelic_license_key  => $new_relic_licence_key,
+  } ~>
+  class {'newrelic::agent::php':
+    newrelic_license_key  => $new_relic_licence_key,
+    newrelic_ini_appname  => 'mbank.api',
+    newrelic_php_conf_dir => ['/etc/php5/mods-available'],
+  }
+
   class{'mbank_api_users':} ->
   class {'mbank_api_php56':} -> class{'mbank_api_mongo':} ->
 
