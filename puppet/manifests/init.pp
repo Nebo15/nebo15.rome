@@ -19,7 +19,7 @@ node default {
   include apt
 
   $new_relic_licence_key = "fc04150b6b2478740bd6a6357087c1342bf99789"
-  $new_relic_app_name = 'mbank.api.serega.production'
+  $new_relic_app_name = 'mbank.serega.production'
   class {'newrelic::server::linux':
     newrelic_license_key  => $new_relic_licence_key,
   } ~>
