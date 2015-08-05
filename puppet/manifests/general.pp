@@ -19,6 +19,10 @@ node default {
 
   include sethostname
 
+  class{ 'best_wallet_crons':
+    drunken_do => true
+  }
+
   class { 'nginx':
     daemon_user => 'www-data',
     worker_processes => 4,
