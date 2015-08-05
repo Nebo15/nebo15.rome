@@ -5,7 +5,17 @@ node default {
   package {'install uuid-runtime': name    => 'uuid-runtime',ensure  => installed,}
   package { "openssh-server": ensure => "installed" }
 
-  class {'mbank_api_php56':}
+  $new_relic_licence_key = "fc04150b6b2478740bd6a6357087c1342bf99789"
+  $new_relic_app_name = 'ams.wallet.best'
+  class {'mbank_api_php56':} ->
+  class {'newrelic::server::linux':
+    newrelic_license_key  => $new_relic_licence_key,
+  } ~>
+  class {'newrelic::agent::php':
+    newrelic_license_key  => $new_relic_licence_key,
+    newrelic_ini_appname  => $new_relic_app_name,
+    newrelic_php_conf_dir => ['/etc/php5/mods-available'],
+  }
   class{'mbank_api_users':} ->
   file { ["/www", "/var/www", "/var/www/.ssh", "/var/log", "/var/log/www"]:
     ensure => "directory",
