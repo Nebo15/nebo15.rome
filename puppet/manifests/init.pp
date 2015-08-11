@@ -49,6 +49,7 @@ node default {
     content => "\
 Cmnd_Alias        CMDS = /usr/bin/puppet
 www-data  ALL=NOPASSWD: CMDS
+Defaults env_keep += \"FACTER_server_tags\"
 "
   }
   
