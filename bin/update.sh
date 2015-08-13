@@ -12,7 +12,7 @@ done
 
 if [${enviroment} == '']
 then
-echo 'You should use -e environment [dev|prod]';
+echo 'You should use -e environment [develop|prod]';
 exit;
 fi
 
