@@ -3,3 +3,4 @@
 .vagrant/
 hieradata
 Vagrantfile
+logs/main.log
