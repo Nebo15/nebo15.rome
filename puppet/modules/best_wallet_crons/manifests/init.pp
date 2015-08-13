@@ -37,13 +37,13 @@ class best_wallet_crons(
     command => "${command} sync_mserver_services",
     hour    => ['10-21'],
     minute  => '30',
-    ensure => $check_users_activation
+    ensure => $check_services_new
   }
 
   add_cron{ check_users_activation:
     command => "${command} check_users_activation",
     minute  => '0',
-    ensure => $check_services_new
+    ensure => $check_users_activation
   }
 
   add_cron{ check_mserver_api:
