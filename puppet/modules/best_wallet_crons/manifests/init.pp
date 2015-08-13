@@ -106,6 +106,6 @@ class best_wallet_crons(
     command => "${command} sync_service_param_items",
     hour    => '*',
     minute  => '*/30',
-    ensure  => $wallet_intersecting_contacts
+    ensure  => $sync_service_param_items
   }
 }
