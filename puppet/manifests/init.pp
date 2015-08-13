@@ -20,7 +20,7 @@ node default {
 
   if (has_role("prod") and !has_role("develop")) {
     $new_relic_licence_key = "fc04150b6b2478740bd6a6357087c1342bf99789"
-    $new_relic_app_name = 'mbank.api.prod'
+    $new_relic_app_name = 'mbank.api.production'
   } else {
     $new_relic_licence_key = "1234567890123456789012345678901234567890"
     $new_relic_app_name = 'mbank.api.dev'
