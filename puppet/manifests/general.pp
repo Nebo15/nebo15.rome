@@ -61,7 +61,7 @@ node default {
   include install_sphinx_search
   include sethostname
   if (has_role("prod") and !has_role("develop")) {
-    $check_services = true
+    $check_services = false
     $apns_feedback = true
     $autopayment_events_processing = true
     $autopayment_payments_checker = true
@@ -69,9 +69,10 @@ node default {
     $send_daily_transaction_log = false
     $send_monthly_transaction_log = false
     $wallet_intersecting_contacts = true
-    $sync_service_param_items = true
+    $sync_service_param_items = false
+    $check_services_new = true
   } else {
-    $check_services = true
+    $check_services = false
     $apns_feedback = true
     $autopayment_events_processing = true
     $autopayment_payments_checker = true
@@ -79,7 +80,8 @@ node default {
     $send_daily_transaction_log = true
     $send_monthly_transaction_log = true
     $wallet_intersecting_contacts = true
-    $sync_service_param_items = true
+    $sync_service_param_items = false
+    $check_services_new = false
   }
 
   class { 'best_wallet_crons':
@@ -91,7 +93,8 @@ node default {
     send_daily_transaction_log => $send_daily_transaction_log,
     send_monthly_transaction_log => $send_monthly_transaction_log,
     wallet_intersecting_contacts => $wallet_intersecting_contacts,
-    sync_service_param_items => $sync_service_param_items
+    sync_service_param_items => $sync_service_param_items,
+    check_services_new => $check_services_new
   }
 
   class { 'nginx':

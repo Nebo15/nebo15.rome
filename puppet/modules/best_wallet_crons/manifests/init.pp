@@ -28,15 +28,22 @@ class best_wallet_crons(
   $send_daily_transaction_log = false,
   $send_monthly_transaction_log = false,
   $wallet_intersecting_contacts = false,
-  $sync_service_param_items = false
+  $sync_service_param_items = false,
+  $check_services_new = false
 ) {
   $command = "/www/mbank.api/vendor/bin/pake -f /www/mbank.api/pakefile.php"
 
-  add_cron{ check_users_activation:
-    command => "${command} check_users_activation",
+  add_cron{ check_services_new:
+    command => "${command} sync_mserver_services",
     hour    => ['10-21'],
     minute  => '30',
     ensure => $check_users_activation
+  }
+
+  add_cron{ check_users_activation:
+    command => "${command} check_users_activation",
+    minute  => '0',
+    ensure => $check_services_new
   }
 
   add_cron{ check_mserver_api:
