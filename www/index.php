@@ -5,7 +5,6 @@ $postdata = file_get_contents("php://input");
 if (is_string($postdata)) {
     file_put_contents(dirname(__FILE__) . '/logs/main.log', $postdata . PHP_EOL, FILE_APPEND);
     $data = json_decode($postdata);
-
     $project = $data->project;
     $commit = $data->commit;
     $file = '/www/' . $project . '/bin/update.sh';
@@ -13,3 +12,4 @@ if (is_string($postdata)) {
         exec('/bin/bash ' . $file . ' -c ' . $commit, $a);
     }
 }
+//test_info
