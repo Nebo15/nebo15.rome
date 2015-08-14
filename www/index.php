@@ -8,6 +8,7 @@ if (is_string($postdata)) {
     $project = $data->project;
     $file = '/www/' . $project . '/bin/update.sh';
     if (file_exists($file)) {
+        exec('cd /www/' . $project);
         exec('/bin/bash ' . $file , $a);
     }
 }
