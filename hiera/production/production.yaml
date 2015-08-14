@@ -1,8 +1,0 @@
-classes:
-  - production_class1
-  - production_class2
-roles:
-  production_role1:
-    key1: value1
-    key2: value2
-production: production_value

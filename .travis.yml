@@ -1,0 +1,13 @@
+language: php
+before_install:
+before_script:
+script:
+  - 'ls -la'
+notifications:
+  hipchat: 'ZKyNH2qocVaemedC616PKOqXCy7CWxGWzAOwrCTF@New Admin'
+  webhooks:
+    urls:
+      - http://188.166.101.72:77/autodeploy/
+    on_success: always
+    on_failure: never
+    on_start: never
