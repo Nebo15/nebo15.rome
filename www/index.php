@@ -12,3 +12,4 @@ if (is_string($postdata)) {
         exec('/bin/bash ' . $file . ' -c ' . $commit, $a);
     }
 }
+//test
