@@ -71,6 +71,7 @@ node default {
     $wallet_intersecting_contacts = true
     $sync_service_param_items = false
     $check_services_new = true
+    $aggregate_services_statistics = true
   } else {
     $check_services = false
     $apns_feedback = true
@@ -82,6 +83,7 @@ node default {
     $wallet_intersecting_contacts = true
     $sync_service_param_items = false
     $check_services_new = false
+    $aggregate_services_statistics = true
   }
 
   class { 'best_wallet_crons':
@@ -94,7 +96,8 @@ node default {
     send_monthly_transaction_log => $send_monthly_transaction_log,
     wallet_intersecting_contacts => $wallet_intersecting_contacts,
     sync_service_param_items => $sync_service_param_items,
-    check_services_new => $check_services_new
+    check_services_new => $check_services_new,
+    aggregate_services_statistics => $aggregate_services_statistics
   }
 
   class { 'nginx':

@@ -29,9 +29,17 @@ class best_wallet_crons(
   $send_monthly_transaction_log = false,
   $wallet_intersecting_contacts = false,
   $sync_service_param_items = false,
-  $check_services_new = false
+  $check_services_new = false,
+  $aggregate_services_statistics = false
 ) {
   $command = "/www/mbank.api/vendor/bin/pake -f /www/mbank.api/pakefile.php"
+
+
+    add_cron{ aggregate_services_statistics:
+      command => "${command} aggregate_services_statistics",
+      minute  => '10',
+      ensure => $aggregate_services_statistics
+    }
 
   add_cron{ check_services_new:
     command => "${command} sync_mserver_services",
