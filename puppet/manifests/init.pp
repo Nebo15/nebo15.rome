@@ -116,7 +116,7 @@ node default {
   include composer
   include install_mongo
   include users
-
+  class{'enable_autoupdate':} ->
   Class[install_php56] -> Class[install_mongo]
   $new_relic_licence_key = "fc04150b6b2478740bd6a6357087c1342bf99789"
   $new_relic_app_name = 'mbank.fonar.production'
@@ -125,7 +125,7 @@ node default {
   } ~>
   class {'newrelic::agent::php':
     newrelic_license_key  => $new_relic_licence_key,
-    newrelic_ini_appname  => 'mbank.api',
+    newrelic_ini_appname  => $new_relic_app_name,
     newrelic_php_conf_dir => ['/etc/php5/mods-available'],
   }
 
