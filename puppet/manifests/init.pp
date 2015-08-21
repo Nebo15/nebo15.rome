@@ -6,7 +6,7 @@ node default {
   package { "openssh-server": ensure => "installed" }
 
   $new_relic_licence_key = "fc04150b6b2478740bd6a6357087c1342bf99789"
-  $new_relic_app_name = 'wallet.best.web.production'
+  $new_relic_app_name = 'mbank.api..web.production'
   class{'enable_autoupdate':} -> class {'mbank_api_php56':} ->
   class {'newrelic::server::linux':
     newrelic_license_key  => $new_relic_licence_key,
