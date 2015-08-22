@@ -18,7 +18,7 @@ node default {
   include stdlib
   include apt
 
-  class{'mbank_api_users':} -> class{'enable_autoupdate':}
+  class{'mbank_api_users':} -> class{'enable_autoupdate':} -> class{'mbank_api_php56':}
 
 
   file { ["/www", "/var/www", "/var/www/.ssh", "/var/log", "/var/log/www"]:
