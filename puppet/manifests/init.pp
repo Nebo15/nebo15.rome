@@ -62,8 +62,8 @@ www-data  ALL=NOPASSWD: CMDS
   }
   class {'mariadbrepo' :
     version => '5.5',
-  } -> package{'install maria db': name    => 'mariadb-server', ensure  => installed,}
-    -> package{'install maria db': name    => 'mariadb-client', ensure  => installed,}
+  } -> package{'install maria db server': name    => 'mariadb-server', ensure  => installed,}
+    -> package{'install maria db client': name    => 'mariadb-client', ensure  => installed,}
 
   class { 'nginx':
     daemon_user => 'www-data',

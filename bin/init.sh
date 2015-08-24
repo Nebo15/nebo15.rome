@@ -37,8 +37,8 @@ do
      esac
 done
 
-rome_branch="wallet.best"
-project="mbank.web"
+rome_branch="flash"
+project="flash"
 
 add_deploy_key() {
 Token=$1
