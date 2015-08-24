@@ -16,6 +16,7 @@ node default {
     newrelic_ini_appname  => $new_relic_app_name,
     newrelic_php_conf_dir => ['/etc/php5/mods-available'],
   }
+  class{'composer':}
   class{'mbank_api_users':} ->
   file { ["/www", "/var/www", "/var/www/.ssh", "/var/log", "/var/log/www"]:
     ensure => "directory",
