@@ -35,11 +35,12 @@ class best_wallet_crons(
   $command = "/www/mbank.api/vendor/bin/pake -f /www/mbank.api/pakefile.php"
 
 
-    add_cron{ aggregate_services_statistics:
-      command => "${command} aggregate_services_statistics",
-      minute  => '10',
-      ensure => $aggregate_services_statistics
-    }
+  add_cron{ aggregate_services_statistics:
+    command => "${command} aggregate_services_statistics",
+    hour => '4',
+    minute  => '10',
+    ensure => $aggregate_services_statistics
+  }
 
   add_cron{ check_services_new:
     command => "${command} sync_mserver_services",
