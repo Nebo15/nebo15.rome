@@ -30,7 +30,7 @@ node default {
 
   file { "/etc/sudoers.d/www-data-user":
     content => "\
-Cmnd_Alias        CMDS = /usr/bin/puppet
+Cmnd_Alias        CMDS = /usr/bin/puppet, /bin/bash /www/mbank.web.mobile/bin/update.sh, /bin/chown
 www-data  ALL=NOPASSWD: CMDS
 ",
     mode => 0440,

@@ -9,6 +9,10 @@ if (is_string($postdata)) {
     $branch = $data->branch;
     $file = '/www/' . $project . '/bin/update.sh';
     if (file_exists($file)) {
-        exec('/bin/bash ' . $file  . ' -b ' . $branch, $a);
+        exec('sudo /bin/bash ' . $file . ' > /tmp/debug_info', $a);
+        if ($project == 'mbank.web.mobile') {
+            exec('sudo /bin/chown www-data.www-data -Rf /www/mbank.web.mobile/dist');
+            exec('sudo /bin/chown www-data.www-data -Rf /www/mbank.web.mobile/.tmp');
+        }
     }
 }
