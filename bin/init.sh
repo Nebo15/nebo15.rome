@@ -93,7 +93,7 @@ add_deploy_key ${github_token} ${key_name} nebo15.rome "${www_data_key}"
 add_host_to_ssh_config gh.nebo15_rome github.com "~/.ssh/${key_file_name}"
 sudo -u www-data git clone -b ${rome_branch} git@gh.nebo15_rome:Nebo15/nebo15.rome.git /www/nebo15.rome
 
-projects=("mbank.web" "mbank.web.mobile" "mbank.web.admin" "mbank.web.b2b")
+projects=("flash")
 
 for project_name in ${projects[@]}; do
     project_key_file_name="id_rsa_${project_name}_${project_branch}_${ip}"

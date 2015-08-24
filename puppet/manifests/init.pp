@@ -6,7 +6,7 @@ node default {
   package { "openssh-server": ensure => "installed" }
 
   $new_relic_licence_key = "fc04150b6b2478740bd6a6357087c1342bf99789"
-  $new_relic_app_name = 'mbank.api.web.production'
+  $new_relic_app_name = 'flash.production'
   class{'enable_autoupdate':} -> class {'mbank_api_php56':} ->
   class {'newrelic::server::linux':
     newrelic_license_key  => $new_relic_licence_key,
@@ -31,22 +31,6 @@ www-data  ALL=NOPASSWD: CMDS
     mode => 0440,
     owner => root,
     group => root,
-  } ->
-  package {'npm':
-    name    => 'npm',
-    ensure  => installed,
-  } ->
-  file { '/usr/bin/node':
-    ensure => 'link',
-    target => '/usr/bin/nodejs',
-  } ->
-  package {'ruby-compass':
-    name    => 'ruby-compass',
-    ensure  => installed,
-  } ->
-  package { 'bower':
-    provider => 'npm',
-    require => Package['npm']
   }
 
   service { "ssh":
@@ -62,7 +46,7 @@ www-data  ALL=NOPASSWD: CMDS
     notify => Service["ssh"]
   }
 
-  $host_name = "ams-web.wallet.best"
+  $host_name = "ams-flash.wallet.best"
   file { "/etc/hostname":
     ensure => present,
     owner => root,
@@ -76,6 +60,11 @@ www-data  ALL=NOPASSWD: CMDS
     command => "/bin/hostname -F /etc/hostname",
     unless => "/usr/bin/test `hostname` = `/bin/cat /etc/hostname`",
   }
+  class {'mariadbrepo' :
+    version => '5.5',
+  } -> package{'install maria db': name    => 'mariadb-server', ensure  => installed,}
+    -> package{'install maria db': name    => 'mariadb-client', ensure  => installed,}
+
   class { 'nginx':
     daemon_user => 'www-data',
     worker_processes => 4,
@@ -91,67 +80,18 @@ www-data  ALL=NOPASSWD: CMDS
     server_tokens => 'off',
     ssl_dhparam => '/etc/ssl/dhparam.pem'
   } ->
-
-  vcsrepo { '/www/mbank.web':
+  vcsrepo { '/www/flash':
     ensure     => latest,
     provider   => git,
-    source     => 'git@gh.mbank.web_wallet.best:Nebo15/mbank.web.git',
+    source     => 'git@gh.flash_flash:Nebo15/flash.git',
     user       => 'www-data',
     revision   => 'master',
     require => File["/www", "/var/www", "/var/www/.ssh", "/var/log", "/var/log/www"]
-  } ->
-
-  vcsrepo { '/www/mbank.web.mobile':
-    ensure     => latest,
-    provider   => git,
-    source     => 'git@gh.mbank.web.mobile_wallet.best:Nebo15/mbank.web.mobile.git',
-    user       => 'www-data',
-    revision   => 'master',
-  } ->
-
-  vcsrepo { '/www/mbank.web.admin':
-    ensure     => latest,
-    provider   => git,
-    source     => 'git@gh.mbank.web.admin_wallet.best:Nebo15/mbank.web.admin.git',
-    user       => 'www-data',
-    revision   => 'master',
-  } ->
-  vcsrepo { '/www/mbank.web.b2b':
-    ensure     => latest,
-    provider   => git,
-    source     => 'git@gh.mbank.web.b2b_wallet.best:Nebo15/mbank.web.b2b.git',
-    user       => 'www-data',
-    revision   => 'master',
   }
 
-  file { '/etc/nginx/sites-enabled/mbank.web.conf':
+  file { '/etc/nginx/sites-enabled/flash.conf':
     ensure => 'link',
-    target => '/www/mbank.web/settings/nginx/prod.conf',
-    require => Vcsrepo['/www/mbank.web']
-  }
-  file { '/etc/nginx/sites-enabled/mbank.web.mobile.conf':
-    ensure => 'link',
-    target => '/www/mbank.web.mobile/settings/nginx/prod.conf',
-    require => Vcsrepo['/www/mbank.web.mobile']
-  }
-  file { '/etc/nginx/sites-enabled/mbank.web.mobile.bov.conf':
-    ensure => 'link',
-    target => '/www/mbank.web.mobile/settings/nginx/prod.bov.conf',
-    require => Vcsrepo['/www/mbank.web.mobile']
-  }
-  file { '/etc/nginx/sites-enabled/wallet.balticps.lv.conf':
-    ensure => 'link',
-    target => '/www/mbank.web.mobile/settings/nginx/prod.balticps.conf',
-    require => Vcsrepo['/www/mbank.web.mobile']
-  }
-  file { '/etc/nginx/sites-enabled/mbank.web.admin.conf':
-    ensure => 'link',
-    target => '/www/mbank.web.admin/settings/nginx/prod.conf',
-    require => Vcsrepo['/www/mbank.web.admin']
-  }
-  file { '/etc/nginx/sites-enabled/mbank.web.b2b.conf':
-    ensure => 'link',
-    target => '/www/mbank.web.b2b/settings/nginx/prod.conf',
-    require => Vcsrepo['/www/mbank.web.b2b']
+    target => '/www/flash/settings/nginx/prod.conf',
+    require => Vcsrepo['/www/flash']
   }
 }
