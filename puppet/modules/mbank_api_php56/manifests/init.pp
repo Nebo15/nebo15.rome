@@ -2,6 +2,7 @@ class mbank_api_php56 {
   $enhancers = [
     'php5-fpm',
     'php5-cli',
+    'php5-mysql',
   ]
   include apt
   apt::ppa { 'ppa:ondrej/php5-5.6': }
