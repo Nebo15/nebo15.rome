@@ -1,7 +1,7 @@
 # nebo15.rome
 Rome is a center of all roads. Puppet + stuff.
 
-TIMEZONE="Europe/Kiev"
+TIMEZONE="Europe/Moscow"
 LOCALE_LANGUAGE="en_US"
 LOCALE_CODESET="en_US.UTF-8"
 sudo locale-gen ${LOCALE_LANGUAGE} ${LOCALE_CODESET}
