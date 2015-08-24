@@ -7,12 +7,10 @@ if (is_string($postdata)) {
     $data = json_decode($postdata);
     $project = $data->project;
     $branch = $data->branch;
-    $file = '/www/' . $project . '/bin/update.sh';
-    if (file_exists($file)) {
-        exec('sudo /bin/bash ' . $file . ' > /tmp/debug_info', $a);
-        if ($project == 'mbank.web.mobile') {
-            exec('sudo /bin/chown www-data.www-data -Rf /www/mbank.web.mobile/dist');
-            exec('sudo /bin/chown www-data.www-data -Rf /www/mbank.web.mobile/.tmp');
-        }
+    if ($project == 'mbank.web.mobile') {
+        exec('/bin/bash /www/mbank.web.mobile/bin/autodeploy-git.sh > /tmp/debug_info', $a);
+        exec('sudo /bin/bash /www/mbank.web.mobile/bin/autodeploy-build.sh >> /tmp/debug_info', $a);
+        exec('sudo /bin/chown www-data.www-data -Rf /www/mbank.web.mobile/dist');
+        exec('sudo /bin/chown www-data.www-data -Rf /www/mbank.web.mobile/.tmp');
     }
 }
