@@ -42,8 +42,12 @@ node default {
     ensure => file,
     content => "\
 server{
-        listen 80;
+        listen 443 ssl;
         server_name serega.wallet.best;
+
+        ssl_certificate      /etc/ssl/STAR_wallet_best.crt;
+        ssl_certificate_key  /etc/ssl/STAR_wallet_best.key;
+        ssl on;
 
         set \$php 127.0.0.1:9000;
         set \$root_path /www/mbank.api.serega;
