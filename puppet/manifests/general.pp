@@ -41,6 +41,23 @@ node default {
   file { "/etc/nginx/sites-enabled/mbank.api.serega.conf":
     ensure => file,
     content => "\
+server {
+  listen  *:80 default_server;
+  return 404;
+}
+
+server {
+  listen  *:443 default_server;
+  ssl_certificate      /etc/ssl/STAR_wallet_best.crt;
+  ssl_certificate_key  /etc/ssl/STAR_wallet_best.key;
+  ssl on;
+  return 404;
+}
+
+server {
+    server_name serega.wallet.best;
+    rewrite ^/(.*)$ https://\$host/\$1 permanent;
+}
 server{
         listen 443 ssl;
         server_name serega.wallet.best;
