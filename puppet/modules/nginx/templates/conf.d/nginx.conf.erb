@@ -68,8 +68,13 @@ http {
 
 <% if @gzip == 'on' -%>
   gzip         on;
-  gzip_disable "MSIE [1-6]\.(?!.*SV1)";
-
+  gzip_disable "msie6";
+  gzip_vary on;
+  gzip_proxied any;
+  gzip_comp_level 6;
+  gzip_buffers 16 8k;
+  gzip_http_version 1.1;
+  gzip_types *;
 <% end -%>
 <% if @proxy_cache_path -%>
   proxy_cache_path        <%= @proxy_cache_path %> levels=<%= @proxy_cache_levels %> keys_zone=<%= @proxy_cache_keys_zone %> max_size=<%= @proxy_cache_max_size %> inactive=<%= @proxy_cache_inactive %>;
