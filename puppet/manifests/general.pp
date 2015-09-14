@@ -63,8 +63,8 @@ node default {
   if (has_role("prod") and !has_role("develop")) {
     $check_services = false
     $apns_feedback = true
-    $autopayment_events_processing = true
-    $autopayment_payments_checker = true
+    $autopayment_events_processing = false
+    $autopayment_payments_checker = false
     $drunken_do = true
     $send_daily_transaction_log = false
     $send_monthly_transaction_log = false
