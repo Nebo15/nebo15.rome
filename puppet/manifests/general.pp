@@ -132,7 +132,7 @@ node default {
     notify => Service["nginx"],
   }
 
-  logrotate::rule { 'best wallet rotate log':
+  logrotate::rule { 'best_wallet_rotate_log':
     path         => '/www/mbank.api/var/main.log',
     rotate       => 5,
     rotate_every => 'week',
