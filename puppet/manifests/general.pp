@@ -131,4 +131,10 @@ node default {
     target => "/www/nebo15.rome/www/config/nginx.conf",
     notify => Service["nginx"],
   }
+
+  logrotate::rule { 'best wallet rotate log':
+    path         => '/www/mbank.api/var/main.log',
+    rotate       => 5,
+    rotate_every => 'week',
+  }
 }
