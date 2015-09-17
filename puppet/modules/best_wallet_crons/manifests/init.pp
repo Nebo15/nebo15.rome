@@ -43,9 +43,16 @@ class best_wallet_crons(
   }
 
   add_cron{ check_services_new:
-    command => "${command} sync_mserver_services",
+    command => "${command} sync_mserver_services bov",
     hour    => ['10-21'],
     minute  => '30',
+    ensure => $check_services_new
+  }
+
+  add_cron{ check_services_mbank:
+    command => "${command} sync_mserver_services mbank",
+    hour    => ['10-21'],
+    minute  => '00',
     ensure => $check_services_new
   }
 
