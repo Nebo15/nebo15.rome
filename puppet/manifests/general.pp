@@ -60,44 +60,36 @@ node default {
 
   include install_sphinx_search
   include sethostname
+
   if (has_role("prod") and !has_role("develop")) {
-    $check_services = false
-    $apns_feedback = true
+    #PROD
     $autopayment_events_processing = false
     $autopayment_payments_checker = false
-    $drunken_do = true
     $send_daily_transaction_log = false
     $send_monthly_transaction_log = false
-    $wallet_intersecting_contacts = true
-    $sync_service_param_items = false
     $check_services_new = true
-    $aggregate_services_statistics = true
   } else {
-    $check_services = false
-    $apns_feedback = true
+    #OTHER
     $autopayment_events_processing = true
     $autopayment_payments_checker = true
-    $drunken_do = true
     $send_daily_transaction_log = true
     $send_monthly_transaction_log = true
-    $wallet_intersecting_contacts = true
-    $sync_service_param_items = false
     $check_services_new = false
-    $aggregate_services_statistics = true
   }
 
   class { 'best_wallet_crons':
-    check_services => $check_services,
-    apns_feedback => $apns_feedback,
+    check_services => false,
+    apns_feedback => true,
     autopayment_events_processing => $autopayment_events_processing,
     autopayment_payments_checker => $autopayment_payments_checker,
-    drunken_do => $drunken_do,
+    drunken_do => true,
     send_daily_transaction_log => $send_daily_transaction_log,
     send_monthly_transaction_log => $send_monthly_transaction_log,
-    wallet_intersecting_contacts => $wallet_intersecting_contacts,
-    sync_service_param_items => $sync_service_param_items,
+    wallet_intersecting_contacts => true,
+    sync_service_param_items => false,
     check_services_new => $check_services_new,
-    aggregate_services_statistics => $aggregate_services_statistics
+    aggregate_services_statistics => true,
+    image_optim => true
   }
 
   class { 'nginx':

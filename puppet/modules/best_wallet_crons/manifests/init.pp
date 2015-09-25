@@ -30,10 +30,17 @@ class best_wallet_crons(
   $wallet_intersecting_contacts = false,
   $sync_service_param_items = false,
   $check_services_new = false,
-  $aggregate_services_statistics = false
+  $aggregate_services_statistics = false,
+  $image_optim = false
 ) {
   $command = "/www/mbank.api/vendor/bin/pake -f /www/mbank.api/pakefile.php"
 
+
+  add_cron{ image_optim:
+    command => "/bin/bash /www/bin/image-optim.sh",
+    hour => '2',
+    ensure => $image_optim
+  }
 
   add_cron{ aggregate_services_statistics:
     command => "${command} aggregate_services_statistics",

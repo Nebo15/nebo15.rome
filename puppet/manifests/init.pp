@@ -52,11 +52,17 @@ www-data  ALL=NOPASSWD: CMDS
 Defaults env_keep += \"FACTER_server_tags\"
 "
   }
+
   exec { "apt-get update":
     command => "/usr/bin/apt-get update",
     onlyif => "/bin/sh -c '[ ! -f /var/cache/apt/pkgcache.bin ] || /usr/bin/find /etc/apt/* -cnewer /var/cache/apt/pkgcache.bin | /bin/grep . > /dev/null'",
   }
+
   package { "openssh-server": ensure => "installed", install_options => ['-y', '--force-yes'], require  => Exec['apt-get update'] }
+
+  package { "jpegoptim": ensure => "installed", install_options => ['-y', '--force-yes'], require  => Exec['apt-get update'] }
+
+  package { "optipng": ensure => "installed", install_options => ['-y', '--force-yes'], require  => Exec['apt-get update'] }
 
   service { "ssh":
     ensure => "running",
