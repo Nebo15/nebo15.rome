@@ -37,7 +37,7 @@ class best_wallet_crons(
 
 
   add_cron{ image_optim:
-    command => "/bin/bash /www/bin/image-optim.sh",
+    command => "/bin/bash /www/mbank.api/bin/image-optim.sh",
     hour => '2',
     ensure => $image_optim
   }
