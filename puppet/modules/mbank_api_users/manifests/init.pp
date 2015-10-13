@@ -5,6 +5,7 @@ class mbank_api_users {
 
   pe_accounts::user {'kedome':
     locked  => true,
+    managehome => false,
     name => 'kedome',
     groups  => ['kedome','sudo'],
     password => '$6$RT1yB3eL$HkPJUdPhgs5fjvtpyygMMW6jaKrUXAVmgkbi3T.t1vNX6nZ8d6sd3nWiac.O0Pb.x1TMhK03ficXGTWIe2cbY/',
