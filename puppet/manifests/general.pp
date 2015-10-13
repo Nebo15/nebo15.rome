@@ -65,8 +65,8 @@ node default {
     #PROD
     $autopayment_events_processing = false
     $autopayment_payments_checker = false
-    $send_daily_transaction_log = false
-    $send_monthly_transaction_log = false
+    $send_daily_transaction_log = true
+    $send_monthly_transaction_log = true
     $check_services_new = true
   } else {
     #OTHER
