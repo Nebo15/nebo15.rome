@@ -84,10 +84,10 @@ node default {
     ssl_dhparam => $dhparam
   }
 
-  file { "mbill_config":
-    path => "/etc/nginx/sites-enabled/mbill.co.conf",
-    ensure => link,
-    target => "/www/mbill.web/config/nginx/$nginx_configuration_file.conf",
-    notify => Service["nginx"]
-  }
+#  file { "mbill_config":
+#    path => "/etc/nginx/sites-enabled/mbill.co.conf",
+#    ensure => link,
+#    target => "/www/parasport.web/config/nginx/$nginx_configuration_file.conf",
+#    notify => Service["nginx"]
+#  }
 }

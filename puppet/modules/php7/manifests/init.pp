@@ -5,6 +5,7 @@ class php7 {
     'php7.0-cli',
     'php7.0-mysql',
     'php7.0-curl',
+    'php7.0-gd',
   ]
   include apt
   apt::ppa { 'ppa:ondrej/php-7.0': }
