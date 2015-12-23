@@ -1,47 +1,6 @@
-class install_sphinx_search{
-  include apt
-  apt::ppa { 'ppa:builds/sphinxsearch-rel22': }
-
-  package { 'sphinxsearch':
-    ensure  => 'installed',
-    install_options => ['-y', '--force-yes'],
-    require => Apt::Ppa['ppa:builds/sphinxsearch-rel22']
-  }
-
-  file { ["/www/mbank.api/sphinx/", "/www/mbank.api/sphinx/index", "/www/mbank.api/sphinx/log"]:
-    ensure => "directory",
-    owner  => "sphinxsearch",
-    group  => "sphinxsearch",
-    mode   => 755,
-    require => Package['sphinxsearch']
-  }
-  file_line { 'autostart_sphinx':
-    path  => '/etc/default/sphinxsearch',
-    line  => 'START=yes',
-    match => '^START=*',
-    require => Package['sphinxsearch']
-  }
-
-  file { "/etc/sphinxsearch/sphinx.conf":
-    ensure => link,
-    target => "/www/mbank.api/settings/sphinx.example.conf",
-    require => Package['sphinxsearch'] }
-
-  service { 'sphinxsearch':
-    ensure      => 'running',
-    enable     => true,
-    require => File['/etc/sphinxsearch/sphinx.conf'],
-  }
-}
-
-class sethostname {
-
-  if (has_role("prod") and !has_role("develop")) {
-    $host_name = "msk.api.wallet.best"
-  } else {
-    $host_name = "sandbox.wallet.best"
-  }
-
+class sethostname(
+  $host_name = undef
+) {
   file { "/etc/hostname":
     ensure => present,
     owner => root,
@@ -57,44 +16,56 @@ class sethostname {
 }
 
 node default {
-
-  include install_sphinx_search
-  include sethostname
-  if (has_role("prod") and !has_role("develop")) {
-    $check_services = false
-    $apns_feedback = true
-    $autopayment_events_processing = true
-    $autopayment_payments_checker = true
-    $drunken_do = true
-    $send_daily_transaction_log = false
-    $send_monthly_transaction_log = false
-    $wallet_intersecting_contacts = true
-    $sync_service_param_items = false
-    $check_services_new = true
-  } else {
-    $check_services = false
-    $apns_feedback = true
-    $autopayment_events_processing = true
-    $autopayment_payments_checker = true
-    $drunken_do = true
-    $send_daily_transaction_log = true
-    $send_monthly_transaction_log = true
-    $wallet_intersecting_contacts = true
-    $sync_service_param_items = false
-    $check_services_new = false
+  if (has_role("local")) {
+    $host_name = "local.parasport.co"
+    $nginx_configuration_file = 'local'
+    $dhparam = undef
+    $ssh_port = 'Port 22'
+  }
+  if (has_role("prod")) {
+    $host_name = "parasport.co"
+    $nginx_configuration_file = 'prod'
+    $dhparam = '/etc/ssl/dhparam.pem'
+    $ssh_port = 'Port 2020'
+  }
+  if (has_role("develop")) {
+    $host_name = "sandbox.parasport.co"
+    $nginx_configuration_file = 'develop'
+    $dhparam = undef
+    $ssh_port = 'Port 2020'
   }
 
-  class { 'best_wallet_crons':
-    check_services => $check_services,
-    apns_feedback => $apns_feedback,
-    autopayment_events_processing => $autopayment_events_processing,
-    autopayment_payments_checker => $autopayment_payments_checker,
-    drunken_do => $drunken_do,
-    send_daily_transaction_log => $send_daily_transaction_log,
-    send_monthly_transaction_log => $send_monthly_transaction_log,
-    wallet_intersecting_contacts => $wallet_intersecting_contacts,
-    sync_service_param_items => $sync_service_param_items,
-    check_services_new => $check_services_new
+  include stdlib
+  include apt
+  include composer
+
+  class { 'sethostname' :
+    host_name => $host_name
+  }
+
+  package {'install uuid-runtime':
+    name    => 'uuid-runtime',
+    ensure  => installed,
+  }
+  class{'nebo15_users':} ->
+  class {'php7':} -> class { '::mysql::server':
+    root_password           => '-m_R)-mjTGy3&j[%',
+    remove_default_accounts => true,
+  }
+
+  package { "openssh-server": ensure => "installed" }
+
+  service { "ssh":
+    ensure => "running",
+    enable => "true",
+    require => Package["openssh-server"]
+  }
+
+  file_line { 'change_ssh_port':
+    path  => '/etc/ssh/sshd_config',
+    line  => $ssh_port,
+    match => '^Port *',
+    notify => Service["ssh"]
   }
 
   class { 'nginx':
@@ -110,22 +81,13 @@ node default {
     keepalive_timeout => '65',
     types_hash_max_size => '2048',
     server_tokens => 'off',
-    ssl_dhparam => '/etc/ssl/dhparam.pem'
-  }
-  if (has_role("prod") and !has_role("develop")) {
-    $nginx = "prod.conf"
-  } else {
-    $nginx = "demo.conf"
-  }
-  file { "/etc/nginx/sites-enabled/mbank.api.conf":
-    ensure => link,
-    target => "/www/mbank.api/settings/nginx/$nginx",
-    notify => Service["nginx"],
+    ssl_dhparam => $dhparam
   }
 
-  file { "/etc/nginx/sites-enabled/autodeployer.conf":
+  file { "mbill_config":
+    path => "/etc/nginx/sites-enabled/mbill.co.conf",
     ensure => link,
-    target => "/www/nebo15.rome/www/config/nginx.conf",
-    notify => Service["nginx"],
+    target => "/www/mbill.web/config/nginx/$nginx_configuration_file.conf",
+    notify => Service["nginx"]
   }
 }
