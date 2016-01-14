@@ -48,7 +48,7 @@ node default {
     ensure  => installed,
   }
   class{'nebo15_users':} ->
-  class {'php7':} -> class { '::mysql::server':
+  class {'mbank_api_php56':} -> class { '::mysql::server':
     root_password           => '-m_R)-mjTGy3&j[%',
     remove_default_accounts => true,
   }
