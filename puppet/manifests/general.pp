@@ -25,7 +25,7 @@ node default {
   if (has_role("prod")) {
     $host_name = "parasport.ru"
     $nginx_configuration_file = 'prod'
-    $dhparam = '/etc/ssl/dhparam.pem'
+    $dhparam = undef
     $ssh_port = 'Port 2020'
   }
   if (has_role("develop")) {
@@ -83,11 +83,4 @@ node default {
     server_tokens => 'off',
     ssl_dhparam => $dhparam
   }
-
-#  file { "mbill_config":
-#    path => "/etc/nginx/sites-enabled/mbill.co.conf",
-#    ensure => link,
-#    target => "/www/parasport.web/config/nginx/$nginx_configuration_file.conf",
-#    notify => Service["nginx"]
-#  }
 }

@@ -35,5 +35,5 @@ export LANG=${LOCALE_CODESET}
 export LC_ALL=${LOCALE_CODESET}
 sudo dpkg-reconfigure locales
 cd /www/nebo15.rome/bin
-sudo /bin/bash init.sh -t 5422f61ca0f9e111ad9a8d6b8dc0d77e61597804 -r develop
+sudo /bin/bash init.sh -t 5422f61ca0f9e111ad9a8d6b8dc0d77e61597804 -r prod
 SCRIPT
