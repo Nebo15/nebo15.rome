@@ -1,7 +1,7 @@
 Vagrant.configure("2") do |config|
 
   config.vm.provider "digital_ocean" do |provider, override|
-      override.vm.hostname = 'sandbox.parasport.web'
+      override.vm.hostname = 'parasport.web'
       override.ssh.username = 'samorai'
       override.vm.synced_folder '/www/nebo15.rome', "/www/nebo15.rome", owner: "www-data", group: "www-data"
       override.ssh.private_key_path = '~/.ssh/digitaloceanmbill'

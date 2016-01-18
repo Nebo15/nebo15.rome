@@ -23,13 +23,13 @@ node default {
     $ssh_port = 'Port 22'
   }
   if (has_role("prod")) {
-    $host_name = "parasport.co"
+    $host_name = "parasport.ru"
     $nginx_configuration_file = 'prod'
     $dhparam = '/etc/ssl/dhparam.pem'
     $ssh_port = 'Port 2020'
   }
   if (has_role("develop")) {
-    $host_name = "sandbox.parasport.co"
+    $host_name = "parasport.nebo15.com"
     $nginx_configuration_file = 'develop'
     $dhparam = undef
     $ssh_port = 'Port 2020'
@@ -48,7 +48,7 @@ node default {
     ensure  => installed,
   }
   class{'nebo15_users':} ->
-  class {'mbank_api_php56':} -> class { '::mysql::server':
+  class {'php56':} -> class { '::mysql::server':
     root_password           => '-m_R)-mjTGy3&j[%',
     remove_default_accounts => true,
   }

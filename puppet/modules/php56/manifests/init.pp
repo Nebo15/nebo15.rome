@@ -1,4 +1,4 @@
-class mbank_api_php56 {
+class php56 {
   $enhancers = [
     'php5-fpm',
     'php5-cli',
@@ -16,18 +16,18 @@ class mbank_api_php56 {
   }
   file { "/etc/php5/fpm/pool.d/www.conf":
     path => "/etc/php5/fpm/pool.d/www.conf",
-    content => template('mbank_api_php56/php-fpm-www.conf.erb'),
+    content => template('php56/php-fpm-www.conf.erb'),
     require => Package[$enhancers]
   }
   file { "/etc/php5/fpm/php.ini":
     path => "/etc/php5/fpm/php.ini",
-    content => template('mbank_api_php56/php-fpm.ini.erb'),
+    content => template('php56/php-fpm.ini.erb'),
     require => Package[$enhancers]
   }
 
   file { "/etc/php5/fpm/php-fpm.conf":
     path => "/etc/php5/fpm/php-fpm.conf",
-    content => template('mbank_api_php56/php-fpm.conf.erb'),
+    content => template('php56/php-fpm.conf.erb'),
     require => Package[$enhancers]
   }
 }
