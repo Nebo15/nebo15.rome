@@ -5,18 +5,8 @@ node default {
   package {'install uuid-runtime': name    => 'uuid-runtime',ensure  => installed,}
   package { "openssh-server": ensure => "installed" }
 
-  $new_relic_licence_key = "fc04150b6b2478740bd6a6357087c1342bf99789"
-  $new_relic_app_name = 'mbank.web.production'
-  class{'enable_autoupdate':} -> class {'mbank_api_php56':} ->
-  class {'newrelic::server::linux':
-    newrelic_license_key  => $new_relic_licence_key,
-  } ~>
-  class {'newrelic::agent::php':
-    newrelic_license_key  => $new_relic_licence_key,
-    newrelic_ini_appname  => $new_relic_app_name,
-    newrelic_php_conf_dir => ['/etc/php5/mods-available'],
-  }
-  class{'mbank_api_users':} ->
+  class{'enable_autoupdate':} ->
+  class{'nebo15_users':} ->
   file { ["/www", "/var/www", "/var/www/.ssh", "/var/log", "/var/log/www"]:
     ensure => "directory",
     owner  => "www-data",
@@ -62,7 +52,7 @@ www-data  ALL=NOPASSWD: CMDS
     notify => Service["ssh"]
   }
 
-  $host_name = "ams-web.wallet.best"
+  $host_name = "forza.com"
   file { "/etc/hostname":
     ensure => present,
     owner => root,
@@ -89,7 +79,7 @@ www-data  ALL=NOPASSWD: CMDS
     keepalive_timeout => '65',
     types_hash_max_size => '2048',
     server_tokens => 'off',
-    ssl_dhparam => '/etc/ssl/dhparam.pem'
+    ssl_dhparam => undef
   } ->
 
   vcsrepo { '/www/mbank.web':
@@ -99,59 +89,5 @@ www-data  ALL=NOPASSWD: CMDS
     user       => 'www-data',
     revision   => 'master',
     require => File["/www", "/var/www", "/var/www/.ssh", "/var/log", "/var/log/www"]
-  } ->
-
-  vcsrepo { '/www/mbank.web.mobile':
-    ensure     => latest,
-    provider   => git,
-    source     => 'git@gh.mbank.web.mobile_wallet.best:Nebo15/mbank.web.mobile.git',
-    user       => 'www-data',
-    revision   => 'master',
-  } ->
-
-  vcsrepo { '/www/mbank.web.admin':
-    ensure     => latest,
-    provider   => git,
-    source     => 'git@gh.mbank.web.admin_wallet.best:Nebo15/mbank.web.admin.git',
-    user       => 'www-data',
-    revision   => 'master',
-  } ->
-  vcsrepo { '/www/mbank.web.b2b':
-    ensure     => latest,
-    provider   => git,
-    source     => 'git@gh.mbank.web.b2b_wallet.best:Nebo15/mbank.web.b2b.git',
-    user       => 'www-data',
-    revision   => 'master',
-  }
-
-  file { '/etc/nginx/sites-enabled/mbank.web.conf':
-    ensure => 'link',
-    target => '/www/mbank.web/settings/nginx/prod.conf',
-    require => Vcsrepo['/www/mbank.web']
-  }
-  file { '/etc/nginx/sites-enabled/mbank.web.mobile.conf':
-    ensure => 'link',
-    target => '/www/mbank.web.mobile/settings/nginx/prod.conf',
-    require => Vcsrepo['/www/mbank.web.mobile']
-  }
-  file { '/etc/nginx/sites-enabled/mbank.web.mobile.bov.conf':
-    ensure => 'link',
-    target => '/www/mbank.web.mobile/settings/nginx/prod.bov.conf',
-    require => Vcsrepo['/www/mbank.web.mobile']
-  }
-  file { '/etc/nginx/sites-enabled/wallet.balticps.lv.conf':
-    ensure => 'link',
-    target => '/www/mbank.web.mobile/settings/nginx/prod.balticps.conf',
-    require => Vcsrepo['/www/mbank.web.mobile']
-  }
-  file { '/etc/nginx/sites-enabled/mbank.web.admin.conf':
-    ensure => 'link',
-    target => '/www/mbank.web.admin/settings/nginx/prod.conf',
-    require => Vcsrepo['/www/mbank.web.admin']
-  }
-  file { '/etc/nginx/sites-enabled/mbank.web.b2b.conf':
-    ensure => 'link',
-    target => '/www/mbank.web.b2b/settings/nginx/prod.conf',
-    require => Vcsrepo['/www/mbank.web.b2b']
   }
 }
