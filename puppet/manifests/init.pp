@@ -82,10 +82,10 @@ www-data  ALL=NOPASSWD: CMDS
     ssl_dhparam => undef
   } ->
 
-  vcsrepo { '/www/mbank.web':
+  vcsrepo { '/www/forza.web':
     ensure     => latest,
     provider   => git,
-    source     => 'git@gh.mbank.web_wallet.best:Nebo15/mbank.web.git',
+    source     => 'git@gh.forza.web:Nebo15/forza.web.git',
     user       => 'www-data',
     revision   => 'master',
     require => File["/www", "/var/www", "/var/www/.ssh", "/var/log", "/var/log/www"]
