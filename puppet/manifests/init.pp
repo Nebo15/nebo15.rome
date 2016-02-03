@@ -22,6 +22,11 @@ www-data  ALL=NOPASSWD: CMDS
     owner => root,
     group => root,
   } ->
+
+  package {'libnotify-bin':
+    name    => 'libnotify-bin',
+    ensure  => installed,
+  } ->
   package {'npm':
     name    => 'npm',
     ensure  => installed,
