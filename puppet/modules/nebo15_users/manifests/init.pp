@@ -36,7 +36,7 @@ class nebo15_users {
     locked  => false,
     name => 'alexey',
     groups  => ['alexey','sudo'],
-    password => '$6$Ie3WO9bM$dON5FqowUBFvZFdWfZfCmrzGo.qGVTW1ZCt0i/enhJUUja1pnOzmPs7Rc5hX4uIKC6qer41u81L6RLKpvALjX.',
+    password => '$6$wapOKA5F$GLjQ0BdfKzrd.O5wRhJkZ8gpYs8wfJ6eySoHr7tMCBLxr8uSZfAlNrw3IGejsn.Ztw39ugqqucLvoC6EveyWe1',
     sshkeys => [
       'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC0KNsldGp3H8hzxA4EYwY5/K5YaM+QduXOxJNJFzcGSvNUk7xH2hwT8AKw8brAlJiMa7D6Z85XRMs2qZ2dFSs6N8SsLfW+peXycLrlWVYDHoLnT3eNOq0bk+2/U++9C35cQCYGO3M+IVbHv7BJ8mMr2MLxH1l/lrrtnOZOzNRASAH3Z5xQlq/67Ky9OyOqk4tFtdjkYzKq9Q5yyiaYKzRlsYxx5xtnX4312EPAQuVoW+zS3XJyVGNN2g1aAZx2bCji2r6WMzS6rjd1j95zU+Jo76pL60hv0rII5o1l2Y82JvsbbHpxSbKh3nF8XOrnycWz9q4AnTXkAa4b9sNhUH4st0CGwQaHKYg9W+8AC+6eEc4r9BwXXomXWsW0XmntcRCcXXUoI1J+PNnq1ASTxk+OISssw+qo/DvQbmqvnUKTxWRnT3SaTjEY3ljr6wmhq88a7foSxu5ISZB4/x6Q+SRTl+EQQ3l9ubSRPmemZGB8jmNJHpmuz7783pIa+es1n3QJj6tUQaQ3i0Gc86LgLGiutvSAItOmiQ4ZQG3GG17EwdGuoI3cNB7+QP/M1xdj344ATefxlF/IdF9hzX7CqorszyjF7N8iqOXUWqV/F25W8vPnKJfTcdSSjmT17csk015sodhRze/L7sS8y5zAsisEwA9s6CEW8j9Yoa4yiTM7Aw== alexeybondarenko@me.com'
     ],
