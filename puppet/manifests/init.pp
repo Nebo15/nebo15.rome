@@ -88,7 +88,7 @@ www-data  ALL=NOPASSWD: CMDS
     keepalive_timeout => '65',
     types_hash_max_size => '2048',
     server_tokens => 'off',
-    ssl_dhparam => undef
+    ssl_dhparam => '/etc/ssl/dhparam.pem'
   } ->
 
   vcsrepo { '/www/forza.web':
