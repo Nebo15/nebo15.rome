@@ -37,6 +37,10 @@ www-data  ALL=NOPASSWD: CMDS
   package { 'bower':
     provider => 'npm',
     require => Package['npm']
+  } ->
+  package { 'gulp':
+    provider => 'npm',
+    require => Package['npm']
   }
 
   service { "ssh":
