@@ -35,10 +35,10 @@ www-data  ALL=NOPASSWD: CMDS
     ensure => 'link',
     target => '/usr/bin/nodejs',
   } ->
-  package {'ruby-compass':
-    name    => 'ruby-compass',
-    ensure  => installed,
-  } ->
+#  package {'ruby-compass':
+#    name    => 'ruby-compass',
+#    ensure  => installed,
+#  } ->
   package { 'bower':
     provider => 'npm',
     require => Package['npm']
