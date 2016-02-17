@@ -36,6 +36,6 @@ define puppet::projects ($project = $title  ) {
     source     => "git@gh.${project}:Nebo15/${project}.git",
     user       => 'www-data',
     revision   => $revision,
-    require => File["/www", "/var/www", "/var/www/.ssh", "/var/log", "/var/log/www"]
+    require    => File["/www", "/var/www", "/var/www/.ssh", "/var/log", "/var/log/www"]
   }
 }
