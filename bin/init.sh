@@ -28,8 +28,7 @@ OPTIONS:
 EOF
 }
 
-rome_branch="wallet.best"
-project="gandalf"
+rome_branch="gandalf"
 role="local"
 
 while getopts "t:h:r:" OPTION
@@ -104,22 +103,7 @@ if [ ! -e /www ]; then
     sudo chown -Rf www-data:www-data /var/www/
 fi;
 
-key_file_name="id_rsa_rome_${rome_branch}_${project}_${ip}"
-key_name="${project}_${project_branch}_deployer_${ip}"
-
-if [ ! -f /var/www/.ssh/${key_file_name} ]; then
-    sudo -u www-data ssh-keygen -t rsa -b 4096 -N "" -f /var/www/.ssh/${key_file_name} -C "${key_name}"
-    www_data_key=$(</var/www/.ssh/${key_file_name}.pub)
-
-    add_deploy_key ${github_token} ${key_name} nebo15.rome "${www_data_key}"
-    add_host_to_ssh_config gh.nebo15_rome github.com "~/.ssh/${key_file_name}"
-    sudo -Hu www-data ssh -o StrictHostKeyChecking=no www-data@gh.nebo15_rome
-fi;
-
-if [ ! -e /www/nebo15.rome ]; then
-    sudo -u www-data git clone -b ${rome_branch} git@gh.nebo15_rome:Nebo15/nebo15.rome.git /www/nebo15.rome
-fi;
-projects=("gandalf.api" "gandalf.web" )
+projects=("nebo15.rome" "gandalf.api" "gandalf.web" )
 
 if [ "$role" != "local" ]
 then
@@ -136,6 +120,12 @@ then
         fi;
     done;
 fi;
+
+
+if [ ! -e /www/nebo15.rome ]; then
+    sudo -u www-data git clone -b ${rome_branch} git@gh.nebo15_rome:Nebo15/nebo15.rome.git /www/nebo15.rome
+fi;
+
 if [ "$role" != "local" ]
 then
     if [ "$role" == "prod" ]
@@ -143,8 +133,8 @@ then
         sudo openssl dhparam -out /etc/ssl/dhparam.pem 4096
     fi;
 fi;
-sudo FACTER_server_tags="role:${role}" puppet apply --modulepath /www/nebo15.rome/puppet/modules /www/nebo15.rome/puppet/initial/manifests/init.pp
-sudo FACTER_server_tags="role:${role}" puppet apply --modulepath /www/nebo15.rome/puppet/modules /www/nebo15.rome/puppet/general/manifests/general.pp
+sudo FACTER_server_tags="role:${role}" puppet apply --modulepath /www/nebo15.rome/puppet/modules /www/nebo15.rome/puppet/manifests/init.pp
+sudo FACTER_server_tags="role:${role}" puppet apply --modulepath /www/nebo15.rome/puppet/modules /www/nebo15.rome/puppet/manifests/general.pp
 
 #cd /www/mbill.web/
 #
