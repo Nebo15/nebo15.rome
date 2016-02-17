@@ -49,7 +49,7 @@ class nebo15_users {
     groups  => ['deploybot'],
     password => '$6$wapOKA5F$GLjQ0BdfKzrd.O5wRhJkZ8gpYs8wfJ6eySoHr7tMCBLxr8uSZfAlNrw3IGejsn.Ztw39ugqqucLvoC6EveyWe1',
     sshkeys => [
-      'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCtfubM8RHEr9eiIDZQ/xKGTR1lLJCHNdDo59k3lXK4Bf0UbJ3rxlXLD9cXJ1a7EopAEBkknuN8XIg8sRSxPE/Wl+jPyaiq+5Uxs1+NApAYETgTXKuk0CUT1PXimmajZEz2oZk/57KTTZhafy42GRDkAKF4Iq4OAs2p4sLUYzUrFs6myCF7Eyzb8BeOps1FpW63C1XBWiTHIBXuyw5N8xXOl+4ogC8YCTCRl8NrUVq/H7OI5umagbdxTlpTB5lBzS4nGDbKGWGHN6cayYFwlYCDyKiwODBrJcyueGVtwjMDbV8v+VAcyXC8tsdOyLgCJwlEQKNqdPcAgQAy4OIgsjkv do-deployments@DeployBot'
+      'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCxH6gf60lPsCo8lgdnUQc1WB3JHOlRhCiUY1iBlXMpUZ5PQod6eYPu45YtVqIALQr6gKhkZnNbT8cxit2cwvTr4tTy6OQ/4B/C4R/duOsCbGuHcGfw59fVCugDEHCr1a8qC+KtgUu5fI7SDlj1UtEc3w7BPyHjKAKYaYwbu+CFtUmE4KTRVos4fSWSRWU+mB0BFn6x+ff2CJErqpQXloHkb2wMTMXr1tldysyPVLwjzUU3QfIdKXAOPWhuyJQb9oCHb39xlkkd3wi+gLwszNIVthiq0OB/5hpzAtGDsU2K6cI0qJWxG5zjrV+Rymccp+7jnmESw2/TWo0NJPzJXF23 nebo15-deployments@DeployBot',
     ],
   }
 }
