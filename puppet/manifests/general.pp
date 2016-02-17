@@ -30,12 +30,19 @@ node default {
 
 
 define puppet::projects ($project = $title  ) {
-  vcsrepo { "/www/${project}":
-    ensure     => latest,
-    provider   => git,
-    source     => "git@gh.${project}:Nebo15/${project}.git",
-    user       => 'www-data',
-    revision   => $revision,
-    require    => File["/www", "/var/www", "/var/www/.ssh", "/var/log", "/var/log/www"]
+
+  file { ["/www/${project}"]:
+    ensure => "directory",
+    owner  => "deploybot",
+    group  => "deploybot",
+    mode   => 755
   }
+#  vcsrepo { "/www/${project}":
+#    ensure     => latest,
+#    provider   => git,
+#    source     => "git@gh.${project}:Nebo15/${project}.git",
+#    user       => 'www-data',
+#    revision   => $revision,
+#    require    => File["/www", "/var/www", "/var/www/.ssh", "/var/log", "/var/log/www"]
+#  }
 }

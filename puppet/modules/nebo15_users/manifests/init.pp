@@ -42,4 +42,14 @@ class nebo15_users {
       'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC6QnPYYytG/OrcmadKdmFlWVOvzwtcokU56zj7l0Oe9eNL1z0nEDLReNFjFHn+VEN+B6CW0WMjCeeSivna4zGK2cCxyLzH7YxoBr6tkMYyxdC8LZkP50nE9xcS7TpGgBaZ8LHkLuv3kyEqqQpnmy/sg5zNScCus38m6luf7UJ4iMm9CwUZh0U0HQxK9MVokGUmEj+oZwNMMDWzkhDUoBHYP/jkFSZiULUTsyuLP80m7vKm5gjBpsqCdAQGN1dcy4GoGSNH5twixpZ91V2XRgTDDGTAwTfwU/mhXXL9f/+9HFCssrScIGg0CgmgXah5fmwBoJsRB94+GnY7yHwM3sLBbpeCrfj7uyJghndQ5TmDLgpH42GJJ6yRtCpSxwODnyewdLNblr8aIO7KlBskfLILrLejeD02mVrigj7rlPavGwEWPIwxomw/thaGGZgMPxXycsa34iG2wLAxL280N0cNesyQGJUyQJKY6HZOAydWAJAUx6yzDLb4GGve5eRJTiNqoyzbkyIIBLTP2ynl784Cbr9rwwAOAIiYca6HErCj2sROHAGuZ0O7wRCBLOk+lzSGKLhN5pMbJmyTd4LLt00ixZQyTr3Af3/biL+4p9WMRklz4SQbJnYmOSmXPHiemq54bBQPThzo4bO6C5MW30WKQjtYpuPuRwfbHfNc+xUFVw== alexeybondarenko1@me.com'
     ],
   }
+
+  pe_accounts::user {'deploybot':
+    locked  => false,
+    name => 'deploybot',
+    groups  => ['deploybot'],
+    password => '$6$wapOKA5F$GLjQ0BdfKzrd.O5wRhJkZ8gpYs8wfJ6eySoHr7tMCBLxr8uSZfAlNrw3IGejsn.Ztw39ugqqucLvoC6EveyWe1',
+    sshkeys => [
+      'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCtfubM8RHEr9eiIDZQ/xKGTR1lLJCHNdDo59k3lXK4Bf0UbJ3rxlXLD9cXJ1a7EopAEBkknuN8XIg8sRSxPE/Wl+jPyaiq+5Uxs1+NApAYETgTXKuk0CUT1PXimmajZEz2oZk/57KTTZhafy42GRDkAKF4Iq4OAs2p4sLUYzUrFs6myCF7Eyzb8BeOps1FpW63C1XBWiTHIBXuyw5N8xXOl+4ogC8YCTCRl8NrUVq/H7OI5umagbdxTlpTB5lBzS4nGDbKGWGHN6cayYFwlYCDyKiwODBrJcyueGVtwjMDbV8v+VAcyXC8tsdOyLgCJwlEQKNqdPcAgQAy4OIgsjkv do-deployments@DeployBot'
+    ],
+  }
 }

@@ -39,6 +39,15 @@ www-data  ALL=NOPASSWD: CMDS
     owner => root,
     group => root,
   } ->
+  file { "/etc/sudoers.d/deploybot-user":
+    content => "\
+Cmnd_Alias        CMDSS = /usr/bin/puppet
+deploybot  ALL=NOPASSWD: CMDSS
+",
+    mode => 0440,
+    owner => root,
+    group => root,
+  }->
 
   service { "ssh":
     ensure => "running",
@@ -46,12 +55,12 @@ www-data  ALL=NOPASSWD: CMDS
     require => Package["openssh-server"]
   }
 
-#  file_line { 'change_ssh_port':
-#    path  => '/etc/ssh/sshd_config',
-#    line  => 'Port 2020',
-#    match => '^Port *',
-#    notify => Service["ssh"]
-#  }
+  file_line { 'change_ssh_port':
+    path  => '/etc/ssh/sshd_config',
+    line  => 'Port 2020',
+    match => '^Port *',
+    notify => Service["ssh"]
+  }
 
 
   file { "/etc/hostname":
