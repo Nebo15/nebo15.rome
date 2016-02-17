@@ -42,7 +42,9 @@ www-data  ALL=NOPASSWD: CMDS
   file { "/etc/sudoers.d/deploybot-user":
     content => "\
 Cmnd_Alias        CMDSS = /usr/bin/puppet
+Cmnd_Alias        CMDSSS = /usr/bin/service
 deploybot  ALL=NOPASSWD: CMDSS
+deploybot  ALL=NOPASSWD: CMDSSS
 ",
     mode => 0440,
     owner => root,
