@@ -25,6 +25,10 @@ node default {
     require => Package['npm']
   }
 
+  service { 'php5-fpm':
+    ensure  => 'running',
+    enable  => true,
+  }
 
 }
 

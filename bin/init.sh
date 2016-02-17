@@ -117,7 +117,7 @@ if [ ! -f /var/www/.ssh/${key_file_name} ]; then
 fi;
 
 if [ ! -e /www/nebo15.rome ]; then
-    sudo -u www-data git clone -b ${rome_branch} git@gh.nebo15_rome:Nebo15/nebo15.rome.git /www/nebo15.rome
+    sudo -u www-data git clone -b gandalf git@gh.nebo15_rome:Nebo15/nebo15.rome.git /www/nebo15.rome
 fi;
 
 
@@ -138,14 +138,12 @@ then
         fi;
     done;
 fi;
-if [ "$role" != "local" ]
+if [ "$role" == "prod" ]
 then
-    if [ "$role" == "prod" ]
-    then
-        sudo openssl dhparam -out /etc/ssl/dhparam.pem 4096
-    fi;
+#todo and ! -e /etc/ssl/dhparam.pem
+    sudo openssl dhparam -out /etc/ssl/dhparam.pem 4096
 fi;
-sudo FACTER_server_tags="role:${role}" puppet apply --modulepath /www/nebo15.rome/puppet/modules /www/nebo15.rome/puppet/manifests/init.pp
+sudo FACTER_server_tags="role:prod" puppet apply --modulepath /www/nebo15.rome/puppet/modules /www/nebo15.rome/puppet/manifests/init.pp
 sudo FACTER_server_tags="role:${role}" puppet apply --modulepath /www/nebo15.rome/puppet/modules /www/nebo15.rome/puppet/manifests/general.pp
 
 #cd /www/mbill.web/
