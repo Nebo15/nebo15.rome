@@ -1,4 +1,7 @@
-class php56 {
+class php56 (
+  $user = undef,
+  $group = undef
+){
   $enhancers = [
     'php5-fpm',
     'php5-cli',

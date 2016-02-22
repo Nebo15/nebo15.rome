@@ -1,9 +1,15 @@
 node default {
+
   $projects = ["gandalf.web", "gandalf.api"] #array of projects, should be similar with array from init.sh
+  $project_owner_user = "deploybot"
+  $project_owner_group = "deploybot"
 
   puppet::projects { $projects: }
 
-  class {'php56':} -> class{ 'mongo_3': }
+  class {'php56':
+    user => $project_owner_user,
+    group => $project_owner_group
+  } -> class{ 'mongo_3': }
 
   package {'libnotify-bin':
     name    => 'libnotify-bin',
@@ -41,7 +47,7 @@ define puppet::projects ($project = $title  ) {
 #    ensure     => latest,
 #    provider   => git,
 #    source     => "git@gh.${project}:Nebo15/${project}.git",
-#    user       => 'www-data',
+#    user       => $project_owner_user,
 #    revision   => $revision,
 #    require    => File["/www", "/var/www", "/var/www/.ssh", "/var/log", "/var/log/www"]
 #  }
