@@ -159,5 +159,3 @@ fi;
 sudo FACTER_server_tags="role:${environment}" puppet apply --modulepath /www/nebo15.rome/puppet/modules /www/nebo15.rome/puppet/manifests/init.pp
 sudo FACTER_server_tags="role:${environment}" puppet apply --modulepath /www/nebo15.rome/puppet/modules /www/nebo15.rome/puppet/manifests/general.pp
 
-
-sudo FACTER_server_tags="role:local" puppet apply --modulepath /vagrant/puppet/modules /vagrant/puppet/manifests/init.pp
