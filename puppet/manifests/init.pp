@@ -80,7 +80,7 @@ deploybot  ALL=NOPASSWD: CMDSSS
   }
 
   class { 'nginx':
-    daemon_user => 'www-data',
+    daemon_user => 'deploybot',
     worker_processes => 4,
     pid => '/run/nginx.pid',
     worker_connections => 4000,
