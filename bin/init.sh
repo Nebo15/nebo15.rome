@@ -31,10 +31,11 @@ EOF
 
 
 rome_branch="gandalf" #branch name github.com/Nebo15/nebo15.rome/ with puppet configuration
-project="gandalf" #project name for automatic generate public key
+server_name="gandalf" #project name for automatic generate public key
 environment="local" #default environment
+projects=("gandalf.api" "gandalf.web" ) #list of projects for cloning
 
-while getopts "t:h:r:" OPTION
+while getopts "t:h:e:" OPTION
 do
      case ${OPTION} in
          h)
@@ -44,7 +45,7 @@ do
          t)
              github_token=$OPTARG
              ;;
-         r)
+         e)
              environment=$OPTARG
              ;;
          ?)
@@ -113,8 +114,8 @@ if [ ! -e /www ]; then
 fi;
 
 #creating and adding access public key for github if it not exists for cloning nebo15.rome
-key_file_name="id_rsa_rome_${rome_branch}_${project}_${ip}"
-key_name="${project}_${project_branch}_deployer_${ip}"
+key_file_name="id_rsa_rome_${rome_branch}_${server_name}_${ip}"
+key_name="${server_name}_${rome_branch}_deployer_${ip}"
 
 if [ ! -f /var/www/.ssh/${key_file_name} ]; then
     sudo -u www-data ssh-keygen -t rsa -b 4096 -N "" -f /var/www/.ssh/${key_file_name} -C "${key_name}"
@@ -128,9 +129,6 @@ fi;
 if [ ! -e /www/nebo15.rome ]; then
     sudo -u www-data git clone -b gandalf git@gh.nebo15_rome:Nebo15/nebo15.rome.git /www/nebo15.rome
 fi;
-
-#list of projects for cloning
-projects=("gandalf.api" "gandalf.web" )
 
 if [ "$environment" != "local" ]
 then
