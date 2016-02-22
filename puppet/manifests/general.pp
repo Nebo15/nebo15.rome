@@ -1,5 +1,6 @@
 node default {
-  $projects = ["gandalf.web", "gandalf.api"]
+  $projects = ["gandalf.web", "gandalf.api"] #array of projects, should be similar with array from init.sh
+
   puppet::projects { $projects: }
 
   class {'php56':} -> class{ 'mongo_3': }
@@ -35,6 +36,7 @@ define puppet::projects ($project = $title  ) {
     group  => "deploybot",
     mode   => 755
   }
+  #if you want clone project from git
 #  vcsrepo { "/www/${project}":
 #    ensure     => latest,
 #    provider   => git,

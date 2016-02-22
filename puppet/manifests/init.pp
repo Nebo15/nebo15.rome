@@ -1,15 +1,18 @@
 node default {
 
   $host_name = "gandalf.nebo15.com"
+  $daemon_nginx_user = "deploybot" #username is deploybot if projects use autodeploy
 
   if (has_role("local")) {
     $dhparam = undef
     $revision = undef
   }
+
   if (has_role("prod")) {
     $dhparam = '/etc/ssl/dhparam.pem'
     $revision = "master"
   }
+
   if (has_role("develop")) {
     $dhparam = undef
     $revision = "develop"
@@ -30,40 +33,36 @@ node default {
     mode   => 755
   } ->
 
-  file { "/etc/sudoers.d/www-data-user":
+  file { "/etc/sudoers.d/system-users":
     content => "\
-Cmnd_Alias        CMDS = /usr/bin/puppet
-www-data  ALL=NOPASSWD: CMDS
+Cmnd_Alias        WWW_DATA_PUPPET = /usr/bin/puppet
+Cmnd_Alias        DEPLOYBOT_ACCESS = /usr/bin/puppet, /usr/bin/service
+www-data  ALL=NOPASSWD: WWW_DATA_PUPPET
+deploybot  ALL=NOPASSWD: DEPLOYBOT_ACCESS
 ",
     mode => 0440,
     owner => root,
     group => root,
   } ->
-  file { "/etc/sudoers.d/deploybot-user":
-    content => "\
-Cmnd_Alias        CMDSS = /usr/bin/puppet
-Cmnd_Alias        CMDSSS = /usr/bin/service
-deploybot  ALL=NOPASSWD: CMDSS
-deploybot  ALL=NOPASSWD: CMDSSS
-",
-    mode => 0440,
-    owner => root,
-    group => root,
-  }->
+
+  file_line { 'sudoers_rule_FACTER_server_tags':
+    path => '/etc/sudoers',
+    line => 'Defaults env_keep += "FACTER_server_tags"',
+  }
 
   service { "ssh":
     ensure => "running",
     enable => "true",
     require => Package["openssh-server"]
   }
-
-  file_line { 'change_ssh_port':
-    path  => '/etc/ssh/sshd_config',
-    line  => 'Port 2020',
-    match => '^Port *',
-    notify => Service["ssh"]
+  if (has_role("local")) {
+    file_line { 'change_ssh_port':
+      path   => '/etc/ssh/sshd_config',
+      line   => 'Port 2020',
+      match  => '^Port *',
+      notify => Service["ssh"]
+    }
   }
-
 
   file { "/etc/hostname":
     ensure => present,
@@ -80,7 +79,7 @@ deploybot  ALL=NOPASSWD: CMDSSS
   }
 
   class { 'nginx':
-    daemon_user => 'www-data',
+    daemon_user => $daemon_nginx_user,
     worker_processes => 4,
     pid => '/run/nginx.pid',
     worker_connections => 4000,
