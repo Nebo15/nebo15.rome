@@ -127,7 +127,7 @@ if [ ! -f /var/www/.ssh/${key_file_name} ]; then
 fi;
 
 if [ ! -e /www/nebo15.rome ]; then
-    sudo -u www-data git clone -b gandalf git@gh.nebo15_rome:Nebo15/nebo15.rome.git /www/nebo15.rome
+    sudo -u www-data git clone -b ${rome_branch} git@gh.nebo15_rome:Nebo15/nebo15.rome.git /www/nebo15.rome
 fi;
 
 if [ "$environment" != "local" ]
