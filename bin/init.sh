@@ -3,7 +3,7 @@ dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 ip="$(ip addr | grep 'state UP' -A2 | tail -n1 | awk '{print $2}' | cut -f1  -d'/')";
 
 #set server timezone
-TIMEZONE="Europe/Kiev"
+TIMEZONE="UTC"
 LOCALE_LANGUAGE="en_US"
 LOCALE_CODESET="en_US.UTF-8"
 sudo locale-gen ${LOCALE_LANGUAGE} ${LOCALE_CODESET}
