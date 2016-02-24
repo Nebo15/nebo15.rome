@@ -18,24 +18,11 @@ node default {
   include composer
   include apt
 
-  $new_relic_licence_key = "fc04150b6b2478740bd6a6357087c1342bf99789"
-  $new_relic_app_name = 'mbank.serega.production'
-
-  class{'enable_autoupdate':} ->
-  class {'newrelic::server::linux':
-    newrelic_license_key  => $new_relic_licence_key,
-  } ~>
-  class {'newrelic::agent::php':
-    newrelic_license_key  => $new_relic_licence_key,
-    newrelic_ini_appname  => $new_relic_app_name,
-    newrelic_php_conf_dir => ['/etc/php5/mods-available'],
-  }
-
-  class{'mbank_api_users':} ->
+  class{'enable_autoupdate':} -> class{'nebo15_users':} ->
   class {'mbank_api_php56':} -> class{'mbank_api_mongo':} ->
 
 
-  file { ["/www", "/var/backups/mbank.api", "/var/www", "/var/www/.ssh", "/var/log", "/var/log/www"]:
+  file { ["/www", "/var/www", "/var/www/.ssh", "/var/log", "/var/log/www"]:
     ensure => "directory",
     owner  => "www-data",
     group  => "www-data",

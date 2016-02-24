@@ -20,7 +20,6 @@ define add_cron($command, $hour = '*', $minute = '*', $month = '*', $ensure) {
 class best_wallet_crons(
   $drunken_do = false,
 ) {
-  $command = "/www/mbank.api/vendor/bin/pake -f /www/mbank.api/pakefile.php"
 
   add_cron{ check_users_activation:
     command => "/www/mbank.api.serega/vendor/bin/drunken --config=\"/www/mbank.api.serega/drunken.config.php\" do",
