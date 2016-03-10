@@ -1,5 +1,5 @@
 node default {
-  $projects = ["gandalf.web", "gandalf.api"]
+  $projects = ["gandalf.web", "gandalf.api", "gandalf.landing.web"]
   puppet::projects { $projects: }
 
   class {'php56':} -> class{ 'mongo_3': }

@@ -2,7 +2,8 @@
 dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 ip="$(ip addr | grep 'state UP' -A2 | tail -n1 | awk '{print $2}' | cut -f1  -d'/')";
 
-TIMEZONE="Europe/Kiev"
+#set server timezone
+TIMEZONE="UTC"
 LOCALE_LANGUAGE="en_US"
 LOCALE_CODESET="en_US.UTF-8"
 sudo locale-gen ${LOCALE_LANGUAGE} ${LOCALE_CODESET}
@@ -28,11 +29,13 @@ OPTIONS:
 EOF
 }
 
-rome_branch="gandalf"
-project="gandalf"
-role="local"
 
-while getopts "t:h:r:" OPTION
+rome_branch="gandalf" #branch name github.com/Nebo15/nebo15.rome/ with puppet configuration
+server_name="gandalf" #project name for automatic generate public key
+environment="local" #default environment
+projects=("gandalf.api" "gandalf.web" "gandalf.landing.web" ) #list of projects for cloning
+
+while getopts "t:h:e:" OPTION
 do
      case ${OPTION} in
          h)
@@ -42,8 +45,8 @@ do
          t)
              github_token=$OPTARG
              ;;
-         r)
-             role=$OPTARG
+         e)
+             environment=$OPTARG
              ;;
          ?)
              show_help
@@ -63,6 +66,7 @@ eval ${curldata}
 eval "$(ssh-agent -s)"
 
 }
+
 add_host_to_ssh_config() {
     host=$1
     host_name=$2
@@ -73,6 +77,7 @@ HostName ${host_name}
 IdentityFile ${file}" | sudo tee --append /var/www/.ssh/config
 }
 
+#installing latest version of puppet if it not exists
 if [ ! -e /usr/bin/puppet ]; then
     source /etc/lsb-release
     wget https://apt.puppetlabs.com/puppetlabs-release-$DISTRIB_CODENAME.deb
@@ -90,12 +95,16 @@ if [ ! -e /usr/bin/puppet ]; then
     DAEMON_OPTS=""
     ' | sudo tee --append /etc/default/puppet
     sudo service puppet start
+else
+    sudo apt-get update
 fi;
 
+#installing git if it not exists
 if [ ! -e /usr/bin/git ]; then
     sudo apt-get install -y -f git
 fi;
 
+#creating dirs for www-data
 if [ ! -e /www ]; then
     sudo mkdir /www/
     sudo chmod 755 /www/
@@ -104,8 +113,9 @@ if [ ! -e /www ]; then
     sudo chown -Rf www-data:www-data /var/www/
 fi;
 
-key_file_name="id_rsa_rome_${rome_branch}_${project}_${ip}"
-key_name="${project}_${project_branch}_deployer_${ip}"
+#creating and adding access public key for github if it not exists for cloning nebo15.rome
+key_file_name="id_rsa_rome_${rome_branch}_${server_name}_${ip}"
+key_name="${server_name}_${rome_branch}_deployer_${ip}"
 
 if [ ! -f /var/www/.ssh/${key_file_name} ]; then
     sudo -u www-data ssh-keygen -t rsa -b 4096 -N "" -f /var/www/.ssh/${key_file_name} -C "${key_name}"
@@ -118,14 +128,14 @@ fi;
 
 if [ ! -e /www/nebo15.rome ]; then
     sudo -u www-data git clone -b gandalf git@gh.nebo15_rome:Nebo15/nebo15.rome.git /www/nebo15.rome
+else
+    cd /www/nebo15.rome && sudo -Hu www-data git pull
 fi;
 
-
-projects=("gandalf.api" "gandalf.web" )
-
-if [ "$role" != "local" ]
+if [ "$environment" != "local" ]
 then
     for project_name in ${projects[@]}; do
+        #creating and adding public keys for each project in array to github
         project_key_file_name="id_rsa_${project_name}_${ip}"
         if [ ! -f /var/www/.ssh/${project_key_file_name} ]; then
             project_key_name="${project}_${ip}"
@@ -138,18 +148,14 @@ then
         fi;
     done;
 fi;
-if [ "$role" == "prod" ]
+
+#if production generate ssl key by Diffie-Helman algorithm https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange
+if [ "$environment" == "prod" ] && [ ! -e /etc/ssl/dhparam.pem ]
 then
-#todo and ! -e /etc/ssl/dhparam.pem
     sudo openssl dhparam -out /etc/ssl/dhparam.pem 4096
 fi;
-sudo FACTER_server_tags="role:prod" puppet apply --modulepath /www/nebo15.rome/puppet/modules /www/nebo15.rome/puppet/manifests/init.pp
-sudo FACTER_server_tags="role:${role}" puppet apply --modulepath /www/nebo15.rome/puppet/modules /www/nebo15.rome/puppet/manifests/general.pp
 
-#cd /www/mbill.web/
-#
-#COMPOSER=$(which composer)
-#if [ -f ${COMPOSER} ]
-#then
-#    sudo -Hu www-data php -d memory_limit=-1 ${COMPOSER} --prefer-source install
-#fi
+#run puppet configs by environment
+sudo FACTER_server_tags="role:${environment}" puppet apply --modulepath /www/nebo15.rome/puppet/modules /www/nebo15.rome/puppet/manifests/init.pp
+sudo FACTER_server_tags="role:${environment}" puppet apply --modulepath /www/nebo15.rome/puppet/modules /www/nebo15.rome/puppet/manifests/general.pp
+
