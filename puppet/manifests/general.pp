@@ -1,6 +1,6 @@
 node default {
   $projects = ["gandalf.web", "gandalf.api"]
-  $revision = 'master';
+  $revision = 'master'
 
   puppet::projects { $projects: }
 

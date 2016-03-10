@@ -127,7 +127,7 @@ if [ ! -f /var/www/.ssh/${key_file_name} ]; then
 fi;
 
 if [ ! -e /www/nebo15.rome ]; then
-    sudo -u www-data git clone -b gandalf git@gh.nebo15_rome:Nebo15/nebo15.rome.git /www/nebo15.rome
+    sudo -u www-data git clone -b gandalf-forza-serega git@gh.nebo15_rome:Nebo15/nebo15.rome.git /www/nebo15.rome
 else
     cd /www/nebo15.rome && sudo -Hu www-data git pull
 fi;
