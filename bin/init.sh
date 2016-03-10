@@ -150,10 +150,10 @@ then
 fi;
 
 #if production generate ssl key by Diffie-Helman algorithm https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange
-if [ "$environment" == "prod" ] && [ ! -e /etc/ssl/dhparam.pem ]
-then
-    sudo openssl dhparam -out /etc/ssl/dhparam.pem 4096
-fi;
+#if [ "$environment" == "prod" ] && [ ! -e /etc/ssl/dhparam.pem ];
+#then
+#    sudo openssl dhparam -out /etc/ssl/dhparam.pem 4096
+#fi;
 
 #run puppet configs by environment
 sudo FACTER_server_tags="role:${environment}" puppet apply --modulepath /www/nebo15.rome/puppet/modules /www/nebo15.rome/puppet/manifests/init.pp
