@@ -28,6 +28,13 @@ node default {
   }
 }
 
+file { ["/www", "/var/www", "/var/www/.ssh", "/var/log", "/var/log/www"]:
+  ensure => "directory",
+  owner  => "www-data",
+  group  => "www-data",
+  mode   => 755
+}
+
 
 define puppet::projects ($project = $title  ) {
 
@@ -37,12 +44,6 @@ define puppet::projects ($project = $title  ) {
 #    group  => "deploybot",
 #    mode   => 755
 #  }
-  file { ["/www", "/var/www", "/var/www/.ssh", "/var/log", "/var/log/www"]:
-    ensure => "directory",
-    owner  => "www-data",
-    group  => "www-data",
-    mode   => 755
-  }
 
   vcsrepo { "/www/${project}":
     ensure     => latest,
