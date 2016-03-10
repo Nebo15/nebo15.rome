@@ -1,5 +1,7 @@
 node default {
-  $projects = ["gandalf.web", "gandalf.api", "gandalf.landing.web"]
+  $projects = ["gandalf.web", "gandalf.api"]
+  $revision = 'master';
+
   puppet::projects { $projects: }
 
   class {'php56':} -> class{ 'mongo_3': }
@@ -29,18 +31,18 @@ node default {
 
 define puppet::projects ($project = $title  ) {
 
-  file { ["/www/${project}"]:
-    ensure => "directory",
-    owner  => "deploybot",
-    group  => "deploybot",
-    mode   => 755
-  }
-#  vcsrepo { "/www/${project}":
-#    ensure     => latest,
-#    provider   => git,
-#    source     => "git@gh.${project}:Nebo15/${project}.git",
-#    user       => 'www-data',
-#    revision   => $revision,
-#    require    => File["/www", "/var/www", "/var/www/.ssh", "/var/log", "/var/log/www"]
+#  file { ["/www/${project}"]:
+#    ensure => "directory",
+#    owner  => "deploybot",
+#    group  => "deploybot",
+#    mode   => 755
 #  }
+  vcsrepo { "/www/${project}":
+    ensure     => latest,
+    provider   => git,
+    source     => "git@gh.${project}:Nebo15/${project}.git",
+    user       => 'www-data',
+    revision   => $revision,
+    require    => File["/www", "/var/www", "/var/www/.ssh", "/var/log", "/var/log/www"]
+  }
 }

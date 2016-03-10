@@ -1,18 +1,16 @@
 node default {
 
-  $host_name = "gandalf.nebo15.com"
+  $host_name = "sms.forza.md"
 
   if (has_role("local")) {
     $dhparam = undef
-    $revision = undef
   }
   if (has_role("prod")) {
-    $dhparam = '/etc/ssl/dhparam.pem'
-    $revision = "master"
+    #$dhparam = '/etc/ssl/dhparam.pem'
+    $dhparam = undef
   }
   if (has_role("develop")) {
     $dhparam = undef
-    $revision = "develop"
   }
 
   include stdlib
@@ -38,18 +36,7 @@ www-data  ALL=NOPASSWD: CMDS
     mode => 0440,
     owner => root,
     group => root,
-  } ->
-  file { "/etc/sudoers.d/deploybot-user":
-    content => "\
-Cmnd_Alias        CMDSS = /usr/bin/puppet
-Cmnd_Alias        CMDSSS = /usr/bin/service
-deploybot  ALL=NOPASSWD: CMDSS
-deploybot  ALL=NOPASSWD: CMDSSS
-",
-    mode => 0440,
-    owner => root,
-    group => root,
-  }->
+  }
 
   service { "ssh":
     ensure => "running",
@@ -80,7 +67,7 @@ deploybot  ALL=NOPASSWD: CMDSSS
   }
 
   class { 'nginx':
-    daemon_user => 'deploybot',
+    daemon_user => 'www-data',
     worker_processes => 4,
     pid => '/run/nginx.pid',
     worker_connections => 4000,

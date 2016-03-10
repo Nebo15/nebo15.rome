@@ -3,18 +3,18 @@ dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 ip="$(ip addr | grep 'state UP' -A2 | tail -n1 | awk '{print $2}' | cut -f1  -d'/')";
 
 #set server timezone
-TIMEZONE="UTC"
-LOCALE_LANGUAGE="en_US"
-LOCALE_CODESET="en_US.UTF-8"
-sudo locale-gen ${LOCALE_LANGUAGE} ${LOCALE_CODESET}
-sudo echo "export LANGUAGE=${LOCALE_CODESET}
-export LANG=${LOCALE_CODESET}
-export LC_ALL=${LOCALE_CODESET} " | sudo tee --append /etc/bash.bashrc
-echo ${TIMEZONE} | sudo tee /etc/timezone
-export LANGUAGE=${LOCALE_CODESET}
-export LANG=${LOCALE_CODESET}
-export LC_ALL=${LOCALE_CODESET}
-sudo dpkg-reconfigure locales
+#TIMEZONE="UTC"
+#LOCALE_LANGUAGE="en_US"
+#LOCALE_CODESET="en_US.UTF-8"
+#sudo locale-gen ${LOCALE_LANGUAGE} ${LOCALE_CODESET}
+#sudo echo "export LANGUAGE=${LOCALE_CODESET}
+#export LANG=${LOCALE_CODESET}
+#export LC_ALL=${LOCALE_CODESET} " | sudo tee --append /etc/bash.bashrc
+#echo ${TIMEZONE} | sudo tee /etc/timezone
+#export LANGUAGE=${LOCALE_CODESET}
+#export LANG=${LOCALE_CODESET}
+#export LC_ALL=${LOCALE_CODESET}
+#sudo dpkg-reconfigure locales
 
 show_help()
 {
@@ -30,10 +30,10 @@ EOF
 }
 
 
-rome_branch="gandalf" #branch name github.com/Nebo15/nebo15.rome/ with puppet configuration
+rome_branch="gandalf-forza-serega" #branch name github.com/Nebo15/nebo15.rome/ with puppet configuration
 server_name="gandalf" #project name for automatic generate public key
 environment="local" #default environment
-projects=("gandalf.api" "gandalf.web" "gandalf.landing.web" ) #list of projects for cloning
+projects=("gandalf.api" "gandalf.web" ) #list of projects for cloning
 
 while getopts "t:h:e:" OPTION
 do
