@@ -43,8 +43,10 @@ www-data  ALL=NOPASSWD: CMDS
     content => "\
 Cmnd_Alias        CMDSS = /usr/bin/puppet
 Cmnd_Alias        CMDSSS = /usr/bin/service
+Cmnd_Alias        CMDSSSS = /usr/bin/npm
 deploybot  ALL=NOPASSWD: CMDSS
 deploybot  ALL=NOPASSWD: CMDSSS
+deploybot  ALL=NOPASSWD: CMDSSSS
 ",
     mode => 0440,
     owner => root,
